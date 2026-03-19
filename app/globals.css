@@ -1,0 +1,197 @@
+/* ─── Font variables (injected by next/font) ─────────────────────────────── */
+:root {
+  --font-display: var(--font-cinzel), 'Palatino Linotype', Georgia, serif;
+  --font-mono:    var(--font-mono, 'JetBrains Mono'), 'Fira Code', 'Courier New', monospace;
+
+  /* Palette */
+  --obsidian:     #0d0d0f;
+  --surface:      #13141a;
+  --surface-2:    #1a1b24;
+  --border:       #2a2b38;
+  --border-hover: #3a3b4a;
+  --cyan:         #00e5ff;
+  --cyan-dim:     rgba(0, 229, 255, 0.12);
+  --crimson:      #8b1a1a;
+  --crimson-lt:   #c0392b;
+  --brass:        #b8960c;
+  --brass-dim:    rgba(184, 150, 12, 0.10);
+  --text-1:       #e8e6df;
+  --text-2:       #9a9890;
+  --text-3:       #5a5955;
+}
+
+/* ─── Reset ──────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--obsidian);
+  color: var(--text-1);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* ─── Skip link ──────────────────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: var(--cyan);
+  color: var(--obsidian);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  border-radius: 0 0 4px 4px;
+  z-index: 999;
+  transition: top 0.1s;
+}
+.skip-link:focus { top: 0; }
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar              { width: 5px; }
+::-webkit-scrollbar-track        { background: var(--obsidian); }
+::-webkit-scrollbar-thumb        { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover  { background: var(--crimson); }
+
+/* ─── Selection ──────────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(0, 229, 255, 0.18);
+  color: var(--cyan);
+}
+
+/* ─── Focus ──────────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+/* ─── Typography base ────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--text-1);
+  line-height: 1.15;
+}
+
+a { color: inherit; text-decoration: none; }
+
+img, video { max-width: 100%; display: block; }
+
+/* ─── Scanline texture ───────────────────────────────────────────────────── */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.06) 2px,
+    rgba(0, 0, 0, 0.06) 4px
+  );
+}
+
+/* ─── Page wrapper ───────────────────────────────────────────────────────── */
+.page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 64px 24px 100px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Section heading ────────────────────────────────────────────────────── */
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: 8px;
+}
+
+.section-eyebrow .accent { color: var(--crimson-lt); }
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-1);
+}
+
+/* ─── Divider ────────────────────────────────────────────────────────────── */
+.ruled-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+}
+.ruled-divider::before,
+.ruled-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--crimson), transparent);
+}
+.ruled-divider::after {
+  background: linear-gradient(to left, var(--crimson), transparent);
+}
+.ruled-divider span {
+  color: var(--brass);
+  font-size: 12px;
+}
+
+/* ─── Glitch animation ───────────────────────────────────────────────────── */
+@keyframes glitch-shift {
+  0%   { clip-path: inset(0 0 96% 0); transform: translateX(-4px); }
+  25%  { clip-path: inset(40% 0 40% 0); transform: translateX(4px); }
+  50%  { clip-path: inset(70% 0 10% 0); transform: translateX(-3px); }
+  75%  { clip-path: inset(15% 0 75% 0); transform: translateX(3px); }
+  100% { clip-path: inset(0 0 96% 0); transform: translateX(0); }
+}
+
+/* ─── Stagger fade-in ────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  animation: fadeUp 0.5s ease both;
+}
+
+.fade-up-1 { animation-delay: 0.05s; }
+.fade-up-2 { animation-delay: 0.12s; }
+.fade-up-3 { animation-delay: 0.20s; }
+.fade-up-4 { animation-delay: 0.28s; }
+.fade-up-5 { animation-delay: 0.36s; }
+
+/* ─── Utility ────────────────────────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
