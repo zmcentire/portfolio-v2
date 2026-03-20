@@ -5,60 +5,222 @@ import BioPersonalizer from '@/components/BioPersonalizer'
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'Full-Stack and AI Engineer with 5+ years of technical leadership.',
+  description:
+    'Full-Stack and AI Engineer with 5+ years of technical leadership in customer-facing roles. Specializing in agentic systems, cloud-native APIs, and developer experience.',
 }
 
 export default function AboutPage() {
   return (
     <>
       <div className="scanlines" aria-hidden="true" />
+
+      {/* <main> carries the implicit ARIA role="main" landmark.
+          This is already set in layout.tsx — the page-container div
+          here is just a layout wrapper inside that main. */}
       <div className="page-container" style={{ position: 'relative', zIndex: 1 }}>
 
-        <section aria-label="Introduction" style={{ display: 'flex', gap: '56px', alignItems: 'flex-start', marginBottom: '80px', flexWrap: 'wrap' }}>
-          <div className="fade-up fade-up-1" style={{ position: 'relative', flexShrink: 0 }}>
-            <Image src="/images/Headshot.jpeg" alt="Zach McEntire" width={220} height={270} priority
-              style={{ objectFit: 'cover', objectPosition: 'center top', borderRadius: '2px', border: '1px solid var(--border)', filter: 'saturate(0.75) contrast(1.1)', display: 'block', position: 'relative', zIndex: 1 }}
+        {/* ── Introduction ────────────────────────────────────────────────
+            <section aria-labelledby> ties the section to its visible h1.
+            AT users hear "Introduction, region" when they enter.
+            Using aria-labelledby is preferred over aria-label because
+            it reuses text already visible on screen.
+        ──────────────────────────────────────────────────────────────── */}
+        <section
+          aria-labelledby="about-heading"
+          style={{ display: 'flex', gap: '56px', alignItems: 'flex-start', marginBottom: '80px', flexWrap: 'wrap' }}
+        >
+          {/* <figure> is the correct semantic wrapper for a self-contained
+              image with an implied caption. margin:0 resets browser default. */}
+          <figure className="fade-up fade-up-1" style={{ position: 'relative', flexShrink: 0, margin: 0 }}>
+            <Image
+              src="/images/Headshot.jpeg"
+              alt="Zach McEntire, Full-Stack and AI Engineer"
+              width={220}
+              height={270}
+              priority
+              style={{
+                objectFit:      'cover',
+                objectPosition: 'center top',
+                borderRadius:   '2px',
+                border:         '1px solid var(--color-border)',
+                filter:         'saturate(0.75) contrast(1.1)',
+                display:        'block',
+                position:       'relative',
+                zIndex:         1,
+              }}
             />
-            <div aria-hidden="true" style={{ position: 'absolute', inset: '-2px', borderRadius: '4px', boxShadow: '0 0 24px rgba(0,229,255,0.12), 0 0 60px rgba(139,26,26,0.08)', zIndex: 0 }} />
-          </div>
+            {/* Glow ring — decorative */}
+            <div
+              aria-hidden="true"
+              style={{
+                position:     'absolute',
+                inset:        '-2px',
+                borderRadius: '4px',
+                boxShadow:    'var(--glow-cyan)',
+                zIndex:       0,
+              }}
+            />
+            <figcaption className="sr-only">Portrait photograph of Zach McEntire</figcaption>
+          </figure>
 
           <div style={{ flex: '1 1 300px' }}>
-            <p className="fade-up fade-up-1 section-eyebrow"><span className="accent">// </span>About</p>
-            <h1 className="fade-up fade-up-2 section-title" style={{ marginBottom: '4px' }}>Zach McEntire</h1>
-            <p className="fade-up fade-up-2" style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', letterSpacing: '0.06em', color: 'var(--text-2)', marginBottom: '28px' }}>
-              Software & Customer Success Engineer
+            {/* Eyebrow — <p> not a heading; it's a label prefix, not a title */}
+            <p className="fade-up fade-up-1 type-eyebrow" style={{ marginBottom: '8px' }}>
+              <span className="accent" aria-hidden="true">// </span>About
             </p>
-            <div className="ruled-divider fade-up fade-up-3" aria-hidden="true"><span>⬡</span></div>
+
+            {/* h1 — page title. id matches aria-labelledby on <section> */}
+            <h1
+              id="about-heading"
+              className="fade-up fade-up-2 type-h1"
+              style={{ marginBottom: '4px' }}
+            >
+              Zach McEntire
+            </h1>
+
+            {/* Role subtitle — <p> not a heading; subordinate to h1 */}
+            <p
+              className="fade-up fade-up-2"
+              style={{
+                fontFamily:    'var(--font-mono)',
+                fontSize:      '13px',
+                letterSpacing: '0.06em',
+                color:         'var(--color-text-secondary)',
+                marginBottom:  '28px',
+              }}
+            >
+              Software &amp; Customer Success Engineer
+            </p>
+
+            {/* Decorative divider — aria-hidden removes purely visual element */}
+            <div className="ruled-divider fade-up fade-up-3" aria-hidden="true">
+              <span>⬡</span>
+            </div>
+
+            {/* Bio — two <p> elements inside a <div> grouping them visually.
+                No role needed; AT reads them as sequential paragraphs. */}
             <div className="fade-up fade-up-3" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', lineHeight: '1.85', color: 'var(--text-2)' }}>
-                Full-Stack and AI Engineer with a deep commitment to developer experience and customer success. I build agentic systems, cloud-native APIs, and the support tooling that keeps them running — bringing 5+ years of technical leadership in customer-facing roles spanning Technical Support and Technical Account Management.
+              <p className="type-body">
+                Full-Stack and AI Engineer with a deep commitment to developer experience
+                and customer success. I build agentic systems, cloud-native APIs, and the
+                support tooling that keeps them running — bringing 5+ years of technical
+                leadership in customer-facing roles spanning Technical Support and
+                Technical Account Management.
               </p>
-              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', lineHeight: '1.85', color: 'var(--text-2)' }}>
-                I leverage Python and Bash scripting to craft custom integrations and data ingest routines for complex enterprise environments, and apply strong network and security knowledge across Windows, macOS, and Linux to troubleshoot and resolve deep-system defects. Recently shipped{' '}
-                <a href="https://tigerdata-fitness-tracker-production-a693.up.railway.app" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cyan)', borderBottom: '1px solid rgba(0,229,255,0.3)' }}>TigerData</a>
-                {' '}— an agentic AI fitness tracker powered by Claude tool-use agents, TimescaleDB, and FastAPI.
+              <p className="type-body">
+                I leverage Python and Bash scripting to craft custom integrations and data
+                ingest routines for complex enterprise environments, and apply strong
+                network and security knowledge across Windows, macOS, and Linux to
+                troubleshoot and resolve deep-system defects. Recently shipped{' '}
+                <a
+                  href="https://tigerdata-fitness-tracker-production-a693.up.railway.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TigerData fitness tracker, opens in new tab"
+                  className="link-cyan"
+                >
+                  TigerData
+                </a>
+                {' '}— an agentic AI fitness tracker powered by Claude tool-use agents,
+                TimescaleDB, and FastAPI.
               </p>
             </div>
-            <div className="fade-up fade-up-4" style={{ display: 'flex', gap: '12px', marginTop: '32px', flexWrap: 'wrap', alignItems: 'center' }}>
-              {[{ href: 'https://github.com/zmcentire', label: 'GitHub' }, { href: 'https://www.linkedin.com/in/zachmcentire/', label: 'LinkedIn' }].map(({ href, label }) => (
-                <a key={label} href={href} target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase' as const, padding: '8px 14px', border: '1px solid var(--border)', borderRadius: '2px', color: 'var(--text-2)' }}>{label} ↗</a>
-              ))}
-              <a href="https://drive.google.com/file/d/1o6YLTJYDMKCfSPTZ4n80DPPWaRRJbY2i/view?usp=sharing" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: '700', letterSpacing: '0.08em', textTransform: 'uppercase' as const, padding: '9px 18px', background: 'var(--cyan)', color: 'var(--obsidian)', borderRadius: '2px' }}>↓ Resume</a>
-            </div>
+
+            {/* Contact links — <nav> landmark so AT users can jump here.
+                Label distinguishes from the main header nav. */}
+            <nav
+              aria-label="Contact and social profiles"
+              className="fade-up fade-up-4"
+              style={{ marginTop: '32px' }}
+            >
+              <ul
+                role="list"
+                style={{ listStyle: 'none', display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}
+              >
+                {[
+                  { href: 'https://github.com/zmcentire',              label: 'GitHub'   },
+                  { href: 'https://www.linkedin.com/in/zachmcentire/', label: 'LinkedIn' },
+                ].map(({ href, label }) => (
+                  <li key={label}>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${label} profile, opens in new tab`}
+                      className="btn btn--secondary"
+                      style={{ padding: '8px 14px', fontSize: '11px' }}
+                    >
+                      {label} ↗
+                    </a>
+                  </li>
+                ))}
+                <li>
+                  <a
+                    href="https://drive.google.com/file/d/1o6YLTJYDMKCfSPTZ4n80DPPWaRRJbY2i/view?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Download resume, opens in new tab"
+                    className="btn btn--primary"
+                    style={{ padding: '9px 18px', fontSize: '11px' }}
+                  >
+                    ↓ Resume
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </section>
 
+        {/* ── Skills ────────────────────────────────────────────────────────
+            <section aria-labelledby> ties to the visible h2.
+            The grid uses role="list" on the container and role="listitem"
+            on each card — this is a valid ARIA list pattern when CSS
+            display:grid removes implicit list semantics.
+        ──────────────────────────────────────────────────────────────── */}
         <section aria-labelledby="skills-heading">
-          <div style={{ borderTop: '1px solid var(--border)', paddingTop: '56px' }}>
-            <p className="section-eyebrow"><span className="accent">// </span>Skills & Stack</p>
-            <h2 id="skills-heading" className="section-title" style={{ marginBottom: '40px' }}>Technical Arsenal</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))', gap: '16px' }} role="list">
+          <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '56px' }}>
+
+            <p className="type-eyebrow" style={{ marginBottom: '8px' }}>
+              <span className="accent" aria-hidden="true">// </span>Skills &amp; Stack
+            </p>
+            <h2
+              id="skills-heading"
+              className="type-h2"
+              style={{ marginBottom: '40px', fontSize: 'clamp(32px, 5vw, 48px)' }}
+            >
+              Technical Arsenal
+            </h2>
+
+            {/* role="list" on the grid restores list semantics removed by
+                CSS grid layout in some browser + AT combinations */}
+            <div className="grid-skills" role="list">
               {skills.map((group, i) => (
-                <article key={group.category} role="listitem" className={`fade-up fade-up-${Math.min(i + 1, 5)}`} style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderLeft: '3px solid var(--crimson)', borderRadius: '2px', padding: '20px' }}>
-                  <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--brass)', marginBottom: '14px', fontWeight: '500' }}>{group.category}</h3>
-                  <ul style={{ listStyle: 'none', display: 'flex', flexWrap: 'wrap', gap: '7px' }} aria-label={`${group.category} skills`}>
+                /*  <article> is correct for a self-contained, independently
+                    meaningful piece of content. Each skill card can stand
+                    alone and makes sense without the surrounding context.
+                    role="listitem" pairs with role="list" on the grid. */
+                <article
+                  key={group.category}
+                  role="listitem"
+                  className={`skill-card fade-up fade-up-${Math.min(i + 1, 5)}`}
+                  aria-labelledby={`skill-cat-${group.category.toLowerCase().replace(/\s+/g, '-')}`}
+                >
+                  {/* h3 — third level; page h1 > section h2 > card h3 */}
+                  <h3
+                    id={`skill-cat-${group.category.toLowerCase().replace(/\s+/g, '-')}`}
+                    className="skill-card__category"
+                  >
+                    {group.category}
+                  </h3>
+
+                  {/* aria-label on the <ul> gives AT a descriptive name
+                      for this specific skill list */}
+                  <ul
+                    className="skill-card__list"
+                    aria-label={`${group.category} skills`}
+                  >
                     {group.items.map((skill) => (
-                      <li key={skill} style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', padding: '4px 10px', background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: '2px', color: 'var(--text-2)', letterSpacing: '0.02em' }}>{skill}</li>
+                      <li key={skill} className="tag">{skill}</li>
                     ))}
                   </ul>
                 </article>
@@ -67,7 +229,12 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* ── AI Personalizer ───────────────────────────────────────────────
+            BioPersonalizer contains its own <section aria-labelledby>
+            and form with proper labelling — see that component.
+        ──────────────────────────────────────────────────────────────── */}
         <BioPersonalizer />
+
       </div>
     </>
   )
