@@ -31,41 +31,22 @@ export default function ProjectCard({ project }: { project: Project }) {
         Nesting role="listitem" inside a <li> would be redundant. */
     <article
       aria-labelledby={headingId}
-      style={{
-        background:    'var(--color-bg-surface)',
-        border:        `1px solid ${open ? 'var(--color-border-glow)' : 'var(--color-border)'}`,
-        borderRadius:  '2px',
-        overflow:      'hidden',
-        display:       'flex',
-        flexDirection: 'column',
-        transition:    'border-color 0.2s',
-        height:        '100%',
-      }}
+      className={`project-card${open ? ' project-card--open' : ''}`}
     >
-      {/* Project image — aria-hidden because the h2 already names the project.
-          The image is decorative context, not informational content.
-          An empty alt="" on the <Image> also satisfies this. */}
-      <div
-        aria-hidden="true"
-        style={{ position: 'relative', height: '160px', overflow: 'hidden' }}
-      >
+      {/* Project image — aria-hidden: decorative, h2 already names the project.
+          .project-img-wrap handles base filter, scanline overlay, and the
+          clip-path glitch animation via CSS ::before / ::after + .glitch-crimson. */}
+      <div aria-hidden="true" className="project-img-wrap" style={{ position: 'relative' }}>
         <Image
           src={project.image}
           alt=""
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"
-          style={{
-            objectFit:  'cover',
-            filter:     'saturate(0.25) contrast(1.2) brightness(0.65)',
-            transition: 'filter 0.3s',
-          }}
         />
-        {/* Gradient overlay — purely decorative */}
-        <div style={{
-          position:   'absolute',
-          inset:      0,
-          background: 'linear-gradient(to bottom, transparent 40%, var(--color-bg-surface) 100%)',
-        }} />
+        {/* Crimson RGB-split layer — offset opposite to the cyan ::after */}
+        <div className="glitch-crimson" />
+        {/* Gradient fade into card body */}
+        <div className="project-img-overlay" />
       </div>
 
       {/* Card body */}
@@ -75,19 +56,12 @@ export default function ProjectCard({ project }: { project: Project }) {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px' }}>
           <div>
             {/* h2 — correct heading level: page h1 > card h2.
-                id matches aria-labelledby on the <article> above. */}
+                id matches aria-labelledby on the <article> above.
+                .project-card__title receives the RGB-split animation on
+                card hover via the CSS sibling selector. */}
             <h2
               id={headingId}
-              style={{
-                fontFamily:    'var(--font-display)',
-                fontSize:      '16px',
-                fontWeight:    '600',
-                color:         'var(--color-text-primary)',
-                margin:        0,
-                lineHeight:    1.3,
-                textTransform: 'uppercase',
-                letterSpacing: '0.02em',
-              }}
+              className="project-card__title"
             >
               {project.title}
             </h2>

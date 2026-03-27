@@ -292,17 +292,23 @@ export default function HeroScene() {
     >
       <Canvas
         gl={{
-          antialias:       true,
-          alpha:           true,         // transparent background — obsidian bg comes from CSS
-          powerPreference: 'high-performance',
-          stencil:         false,
-          depth:           false,        // no depth buffer needed for 2D-feeling overlay
+          antialias:        true,
+          alpha:            true,
+          powerPreference:  'default',   // 'high-performance' triggers context loss on some systems
+          stencil:          false,
+          depth:            false,
+          failIfMajorPerformanceCaveat: false,
         }}
         camera={{ fov: 60, near: 0.1, far: 100, position: [0, 0, 10] }}
-        dpr={[1, 1.5]}                   // cap pixel ratio — avoid overdraw on retina
+        dpr={[1, 1.2]}                   // tighter cap — reduces GPU pressure
+        frameloop="always"
         style={{ background: 'transparent' }}
         onCreated={({ gl }) => {
-          gl.setClearColor(0x000000, 0)  // fully transparent clear
+          gl.setClearColor(0x000000, 0)
+          // gl.domElement is the actual canvas element in R3F v8
+          gl.domElement.addEventListener('webglcontextlost', (e) => {
+            e.preventDefault()
+          }, { once: false })
         }}
       >
         <Scene />
