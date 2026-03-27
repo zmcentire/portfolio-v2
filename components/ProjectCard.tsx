@@ -1,12 +1,15 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Image from 'next/image'
 import { type Project, statusConfig } from '@/lib/data'
+import { ARCH_DIAGRAMS } from '@/components/ArchDiagram'
 
 export default function ProjectCard({ project }: { project: Project }) {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen]          = useState(false)
+  const [diagramOpen, setDiagramOpen] = useState(false)
   const status = statusConfig[project.status]
+  const dialogRef = useRef<HTMLDialogElement>(null)
 
   // Stable IDs for aria-labelledby / aria-controls
   const headingId   = `project-title-${project.id}`
@@ -211,6 +214,148 @@ export default function ProjectCard({ project }: { project: Project }) {
                 ))}
               </ul>
             </div>
+
+            {/* Architecture diagram — thumbnail opens a <dialog> fullscreen modal.
+                <dialog> provides native focus trapping, Escape-to-close, and
+                the correct `role="dialog"` + `aria-modal` semantics for free. */}
+            {ARCH_DIAGRAMS[project.id] && (() => {
+              const Diagram = ARCH_DIAGRAMS[project.id]
+              return (
+                <div>
+                  <h3 style={{
+                    fontFamily:    'var(--font-mono)',
+                    fontSize:      '10px',
+                    letterSpacing: '0.14em',
+                    textTransform: 'uppercase',
+                    color:         'var(--color-accent-brass)',
+                    marginBottom:  '12px',
+                    fontWeight:    '500',
+                  }}>
+                    <span aria-hidden="true" style={{ color: 'var(--color-accent-crimson-lt)' }}>{'> '}</span>
+                    Architecture
+                  </h3>
+
+                  {/* Clickable thumbnail */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setDiagramOpen(true)
+                      dialogRef.current?.showModal()
+                    }}
+                    aria-label={`Expand ${project.title} architecture diagram`}
+                    style={{
+                      display:    'block',
+                      width:      '100%',
+                      padding:    0,
+                      border:     '1px solid var(--color-border)',
+                      borderRadius: '2px',
+                      background: 'none',
+                      cursor:     'zoom-in',
+                      overflow:   'hidden',
+                      position:   'relative',
+                    }}
+                  >
+                    <Diagram />
+                    {/* Expand hint overlay */}
+                    <div style={{
+                      position:   'absolute',
+                      bottom:     8,
+                      right:      8,
+                      background: 'rgba(13,13,15,0.85)',
+                      border:     '1px solid var(--color-border)',
+                      borderRadius: '2px',
+                      padding:    '3px 8px',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize:   '9px',
+                      letterSpacing: '0.10em',
+                      color:      'var(--color-text-secondary)',
+                      textTransform: 'uppercase',
+                      pointerEvents: 'none',
+                    }}>
+                      ⤢ Expand
+                    </div>
+                  </button>
+
+                  {/* Native <dialog> — handles focus trap + Escape natively */}
+                  <dialog
+                    ref={dialogRef}
+                    aria-label={`${project.title} architecture diagram, fullscreen`}
+                    onClick={(e) => {
+                      // Click outside the inner panel closes the dialog
+                      if (e.target === dialogRef.current) {
+                        dialogRef.current?.close()
+                        setDiagramOpen(false)
+                      }
+                    }}
+                    onClose={() => setDiagramOpen(false)}
+                    style={{
+                      position:   'fixed',
+                      inset:      0,
+                      margin:     'auto',
+                      width:      'min(92vw, 1000px)',
+                      maxHeight:  '90vh',
+                      background: 'var(--color-bg-surface)',
+                      border:     '1px solid var(--color-border-glow)',
+                      borderRadius: '2px',
+                      padding:    0,
+                      overflow:   'hidden',
+                    }}
+                  >
+                    {/* Modal header */}
+                    <div style={{
+                      display:        'flex',
+                      alignItems:     'center',
+                      justifyContent: 'space-between',
+                      padding:        '12px 16px',
+                      borderBottom:   '1px solid var(--color-border)',
+                      background:     'var(--color-bg-surface)',
+                    }}>
+                      <p style={{
+                        fontFamily:    'var(--font-mono)',
+                        fontSize:      '10px',
+                        letterSpacing: '0.14em',
+                        textTransform: 'uppercase',
+                        color:         'var(--color-accent-brass)',
+                        margin:        0,
+                      }}>
+                        <span aria-hidden="true" style={{ color: 'var(--color-accent-crimson-lt)' }}>{'> '}</span>
+                        {project.title} — Architecture
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          dialogRef.current?.close()
+                          setDiagramOpen(false)
+                        }}
+                        aria-label="Close architecture diagram"
+                        style={{
+                          background:    'none',
+                          border:        '1px solid var(--color-border)',
+                          borderRadius:  '2px',
+                          color:         'var(--color-text-secondary)',
+                          fontFamily:    'var(--font-mono)',
+                          fontSize:      '11px',
+                          padding:       '4px 10px',
+                          cursor:        'pointer',
+                          lineHeight:    1,
+                        }}
+                      >
+                        ✕
+                      </button>
+                    </div>
+
+                    {/* Full-size diagram */}
+                    <div style={{
+                      padding:    '24px',
+                      overflow:   'auto',
+                      maxHeight:  'calc(90vh - 50px)',
+                    }}>
+                      <Diagram />
+                    </div>
+                  </dialog>
+                </div>
+              )
+            })()}
 
             {/* Engineering challenges */}
             <div>

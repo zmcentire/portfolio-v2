@@ -487,6 +487,31 @@ h1,h2,h3,h4,h5,h6 {
 }
 @media (max-width: 640px) { .hide-mobile { display: none !important; } }
 
+/* ─── DIALOG / MODAL ─────────────────────────────────────────────────────── */
+/* <dialog> backdrop — the native overlay behind the modal panel.
+   ::backdrop is only painted when opened via showModal(), which is
+   what gives us the focus-trapping behaviour for free.              */
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Remove browser default dialog padding/margin so our inner layout owns spacing */
+dialog {
+  color: var(--color-text-primary);
+}
+
+/* Smooth open animation — matches the fade-up pattern used site-wide */
+dialog[open] {
+  animation: dialogOpen 0.2s ease both;
+}
+
+@keyframes dialogOpen {
+  from { opacity: 0; transform: translateY(8px) scale(0.99); }
+  to   { opacity: 1; transform: translateY(0)  scale(1);    }
+}
+
 /* ─── 23. REDUCED MOTION ─────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
