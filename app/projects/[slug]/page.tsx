@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { projects, statusConfig } from '@/lib/data'
-import { ARCH_DIAGRAMS } from '@/components/ArchDiagram'
+import ArchDiagramClient from '@/components/ArchDiagramClient'
 
 // ─── Static generation ────────────────────────────────────────────────────────
 // Pre-renders a page for every project at build time.
@@ -62,7 +62,6 @@ export default function ProjectCaseStudyPage({
   if (!project) notFound()
 
   const status   = statusConfig[project.status]
-  const Diagram  = ARCH_DIAGRAMS[project.id]
   const study    = project.caseStudy
 
   return (
@@ -363,28 +362,29 @@ export default function ProjectCaseStudyPage({
               </blockquote>
             )}
 
-            {/* Architecture diagram */}
-            {Diagram && (
-              <section aria-labelledby="arch-heading">
-                <SectionHeading>Architecture</SectionHeading>
-                <div style={{
-                  border:       '1px solid var(--color-border)',
-                  borderRadius: '2px',
-                  overflow:     'hidden',
-                }}>
-                  <Diagram />
-                </div>
-                <p style={{
-                  fontFamily:  'var(--font-mono)',
-                  fontSize:    '11px',
-                  color:       'var(--color-text-tertiary)',
-                  marginTop:   '10px',
-                  letterSpacing: '0.04em',
-                }}>
-                  Data flow from user interface through API layer to persistence and cloud deployment
-                </p>
-              </section>
-            )}
+            {/* Architecture diagram — rendered via ArchDiagramClient so the
+                ARCH_DIAGRAMS function-map lookup stays on the client side.
+                Server Components cannot serialize React.FC references across
+                the RSC boundary; a string projectId is safe to pass. */}
+            <section aria-labelledby="arch-heading">
+              <SectionHeading>Architecture</SectionHeading>
+              <div style={{
+                border:       '1px solid var(--color-border)',
+                borderRadius: '2px',
+                overflow:     'hidden',
+              }}>
+                <ArchDiagramClient projectId={project.id} />
+              </div>
+              <p style={{
+                fontFamily:    'var(--font-mono)',
+                fontSize:      '11px',
+                color:         'var(--color-text-tertiary)',
+                marginTop:     '10px',
+                letterSpacing: '0.04em',
+              }}>
+                Data flow from user interface through API layer to persistence and cloud deployment
+              </p>
+            </section>
 
             {/* Case study sections */}
             {study && study.sections.map((section, i) => (
