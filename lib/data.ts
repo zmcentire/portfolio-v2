@@ -25,12 +25,12 @@ export const fonts = {
 // Each skill has a proficiency level 1–5 for the visual depth indicator.
 // 5 = daily driver / expert, 4 = strong, 3 = solid working knowledge,
 // 2 = learning / recent, 1 = exposure.
- 
+
 export interface Skill {
   name:  string
   level: 1 | 2 | 3 | 4 | 5
 }
- 
+
 export interface SkillGroup {
   category:    string
   tab:         string   // short tab label
@@ -38,7 +38,7 @@ export interface SkillGroup {
   description: string   // one-line summary shown in the tab panel
   skills:      Skill[]
 }
- 
+
 export const skillGroups: SkillGroup[] = [
   {
     category:    'Frontend',
@@ -107,7 +107,7 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
 ]
- 
+
 // Legacy export — kept so existing components don't break during migration
 export const skills = skillGroups.map(g => ({
   category: g.category,
@@ -116,6 +116,20 @@ export const skills = skillGroups.map(g => ({
 
 // ─── Projects Data ────────────────────────────────────────────────────────────
 export type ProjectStatus = 'live' | 'offline' | 'issue'
+
+// ─── Case study content block ─────────────────────────────────────────────────
+export interface CaseStudySection {
+  heading: string
+  body:    string    // paragraph prose
+  items?:  string[]  // optional bullet list after the prose
+}
+
+export interface CaseStudy {
+  role:      string          // e.g. "Solo developer"
+  duration:  string          // e.g. "6 weeks"
+  outcome:   string          // one-sentence result
+  sections:  CaseStudySection[]
+}
 
 export interface Project {
   id:          string
@@ -131,6 +145,7 @@ export interface Project {
   demo?:       string
   github?:     string
   image:       string
+  caseStudy?:  CaseStudy     // populated for flagship projects
 }
 
 export const projects: Project[] = [
@@ -159,6 +174,36 @@ export const projects: Project[] = [
     demo:   'https://tigerdata-fitness-tracker-production-a693.up.railway.app',
     github: 'https://github.com/zmcentire/tigerdata-fitness-tracker',
     image:  'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800',
+    caseStudy: {
+      role:     'Solo developer',
+      duration: '4 weeks',
+      outcome:  'Live agentic fitness tracker deployed on Railway, processing natural-language workout logs into TimescaleDB hypertables with real-time 1RM projections.',
+      sections: [
+        {
+          heading: 'The problem',
+          body:    'Existing fitness tracking apps require rigid manual data entry — sets, reps, and weights into separate fields. As a powerlifter, I wanted to log a workout the way I actually think about it: "5x3 squat at 315, felt solid." The data still needed to be structured for meaningful analytics.',
+        },
+        {
+          heading: 'Approach',
+          body:    'I built a Claude tool-use agent as the ingestion layer. The agent receives natural-language input, calls structured tools to parse and validate workout data, then writes time-series records to TimescaleDB hypertables. This kept the AI layer stateless — each ingestion call is independent, which matters for reliability and cost.',
+          items: [
+            'Claude tool-use agents for NL → structured data parsing',
+            'TimescaleDB hypertables for time-series workout storage',
+            'Continuous aggregates pre-compute 7-day and 30-day rolling windows',
+            'FastAPI handles agent orchestration and REST endpoints',
+            'Streamlit dashboard renders Plotly charts from aggregated data',
+          ],
+        },
+        {
+          heading: 'The hard part',
+          body:    'TimescaleDB continuous aggregates require careful schema design upfront. Hypertable chunk intervals need to match your query patterns — too coarse and real-time inserts lag; too fine and the aggregation overhead spikes. I ended up with 1-week chunks and daily aggregates, which gave sub-100ms reads for the dashboard while keeping write latency under 20ms.',
+        },
+        {
+          heading: 'What I learned',
+          body:    `Tool-use agents are significantly more reliable than free-form LLM output for structured data extraction. By defining strict tool schemas, the agent can't hallucinate fields or types — the API rejects malformed calls before they reach the database. This pattern is worth applying to any AI feature that touches persistent data.`,
+        },
+      ],
+    },
   },
   {
     id:      'poly',
@@ -197,6 +242,35 @@ export const projects: Project[] = [
       'The UX challenge was building an interface that works under genuine stress — large tap targets, minimal cognitive load, and fast lookup. Data architecture in Firebase required careful normalization to support fast county-filtered queries.',
     demo:  'https://firehouse-app.web.app',
     image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
+    caseStudy: {
+      role:     'Solo developer',
+      duration: '3 weeks',
+      outcome:  'Deployed field resource app used by firefighters and paramedics to look up drug protocols and fire hazard data in real-time county-specific emergencies.',
+      sections: [
+        {
+          heading: 'The problem',
+          body:    'Firefighters and paramedics in the field need to look up drug administration protocols, hospital locations, and building hazard classifications quickly — often in high-noise, low-light conditions with gloved hands. Existing solutions were PDFs or cluttered web pages designed for desktop use.',
+        },
+        {
+          heading: 'Design constraints',
+          body:    'The UX problem drove every technical decision. The interface had to work under genuine stress conditions: one-hand operation, large tap targets, high contrast, minimal navigation depth. No feature could require more than two taps to reach.',
+          items: [
+            'Maximum two-tap depth to any piece of information',
+            'County-based filtering as the primary navigation axis',
+            'High-contrast color coding for hazard severity levels',
+            'Offline-capable reads for poor-signal environments',
+          ],
+        },
+        {
+          heading: 'Architecture',
+          body:    'Firebase Firestore was the right choice here — no backend server to maintain, real-time sync for protocol updates pushed by administrators, and offline persistence built in. I normalized the data across three collections (protocols, hospitals, hazards) with county as the shared foreign key, allowing fast filtered reads without joins.',
+        },
+        {
+          heading: 'What I learned',
+          body:    `Building for stress users is a different discipline than building for casual users. Every interaction has to be forgiving — fat-finger friendly, never requiring precision, always showing the most likely option first. The county filter defaulting to the user's most recently selected county eliminated the most common source of wrong-protocol lookups in testing.`,
+        },
+      ],
+    },
   },
   {
     id:      'stoic-quote',
@@ -220,6 +294,32 @@ export const projects: Project[] = [
     demo:   'https://stoic-quote-generator.netlify.app',
     github: 'https://github.com/zmcentire/stoic-quote-generator',
     image:  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800',
+    caseStudy: {
+      role:     'Solo developer',
+      duration: '1 week (+ migration)',
+      outcome:  'Self-contained Stoic quote generator deployed on Netlify, with zero external runtime dependencies after migrating from a Heroku-hosted API to local JSON.',
+      sections: [
+        {
+          heading: 'The problem',
+          body:    `The original app fetched quotes from a custom REST API hosted on Heroku's free tier. When Heroku ended free dynos in November 2022, the API went offline — taking the app with it. This was a useful failure: it exposed a fragile architectural decision I had made early on.',
+        },
+        {
+          heading: 'The migration',
+          body:    'The fix was straightforward once I understood the root cause: the API existed to serve static data that never changed. There was no reason for a network round-trip, cold start risk, or external service dependency. I migrated the full quote library to a local JSON file and replaced the fetch call with a static import.`,
+          items: [
+            'Removed axios dependency entirely',
+            'Migrated 30+ quotes across 3 themes to quotes.json',
+            'Replaced async fetch() with synchronous import',
+            'Eliminated cold-start latency — quotes load instantly',
+            'Redeployed on Netlify — zero ongoing infrastructure cost',
+          ],
+        },
+        {
+          heading: 'What I learned',
+          body:    'Every external runtime dependency is a potential failure point. Static data should be static — colocated with the code that uses it, versioned together, deployed together. The simplest architecture that satisfies the requirements is almost always the most resilient one. This migration made the app faster, cheaper, and more reliable simultaneously.',
+        },
+      ],
+    },
   },
   {
     id:      'stoic-timeline',

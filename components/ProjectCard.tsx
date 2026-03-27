@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { type Project, statusConfig } from '@/lib/data'
 import { ARCH_DIAGRAMS } from '@/components/ArchDiagram'
 
@@ -395,22 +396,29 @@ export default function ProjectCard({ project }: { project: Project }) {
           </section>
         )}
 
-        {/* Action buttons.
-            <nav> landmarks would be overkill for 1–2 links.
-            A <div> with aria-label="Project links" is appropriate here —
-            it groups the buttons without creating an unnecessary landmark. */}
+        {/* Action buttons */}
         <div
           aria-label={`Links for ${project.title}`}
-          style={{ display: 'flex', gap: '10px', marginTop: 'auto', paddingTop: '4px', flexWrap: 'wrap' }}
+          style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '4px', flexWrap: 'wrap' }}
         >
+          {/* Case study link — always present, primary CTA */}
+          <Link
+            href={`/projects/${project.id}`}
+            aria-label={`Read ${project.title} case study`}
+            className="btn btn--primary"
+            style={{ padding: '9px 14px', fontSize: '11px' }}
+          >
+            Case Study →
+          </Link>
+
           {project.demo && project.status === 'live' && (
             <a
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${project.title} live demo, opens in new tab`}
-              className="btn btn--primary"
-              style={{ padding: '9px 18px', fontSize: '11px' }}
+              className="btn btn--secondary"
+              style={{ padding: '9px 14px', fontSize: '11px' }}
             >
               Live Demo ↗
             </a>
@@ -422,9 +430,9 @@ export default function ProjectCard({ project }: { project: Project }) {
               rel="noopener noreferrer"
               aria-label={`${project.title} source code on GitHub, opens in new tab`}
               className="btn btn--secondary"
-              style={{ padding: '9px 16px', fontSize: '11px' }}
+              style={{ padding: '9px 14px', fontSize: '11px' }}
             >
-              View Code ↗
+              Code ↗
             </a>
           )}
         </div>
