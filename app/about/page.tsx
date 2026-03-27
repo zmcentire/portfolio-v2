@@ -2,11 +2,12 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import BioPersonalizer from '@/components/BioPersonalizer'
 import SkillsSection from '@/components/SkillsSection'
+import ShipSection   from '@/components/ShipSection'
 
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'Full-Stack and AI Engineer with 5+ years of technical leadership in customer-facing roles. Specializing in agentic systems, cloud-native APIs, and developer experience.',
+    'Full-Stack & AI Engineer — agentic systems, cloud-native APIs, support tooling. 5+ years spanning product engineering, TAM, and AI. Based in Salt Lake City.',
 }
 
 export default function AboutPage() {
@@ -89,7 +90,7 @@ export default function AboutPage() {
                 marginBottom:  '28px',
               }}
             >
-              Software &amp; Customer Success Engineer
+              Full-Stack &amp; AI Engineer
             </p>
 
             {/* Decorative divider — aria-hidden removes purely visual element */}
@@ -101,17 +102,13 @@ export default function AboutPage() {
                 No role needed; AT reads them as sequential paragraphs. */}
             <div className="fade-up fade-up-3" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <p className="type-body">
-                Full-Stack and AI Engineer with a deep commitment to developer experience
-                and customer success. I build agentic systems, cloud-native APIs, and the
-                support tooling that keeps them running — bringing 5+ years of technical
-                leadership in customer-facing roles spanning Technical Support and
-                Technical Account Management.
+                I build agentic systems, cloud-native APIs, and the support tooling that
+                keeps them running. My background spans full-stack product engineering,
+                Technical Account Management, and AI systems — which means I can ship the
+                feature, debug the integration, and explain both to a customer on the same day.
               </p>
               <p className="type-body">
-                I leverage Python and Bash scripting to craft custom integrations and data
-                ingest routines for complex enterprise environments, and apply strong
-                network and security knowledge across Windows, macOS, and Linux to
-                troubleshoot and resolve deep-system defects. Recently shipped{' '}
+                Recent work includes{' '}
                 <a
                   href="https://tigerdata-fitness-tracker-production-a693.up.railway.app"
                   target="_blank"
@@ -119,10 +116,25 @@ export default function AboutPage() {
                   aria-label="TigerData fitness tracker, opens in new tab"
                   className="link-cyan"
                 >
-                  TigerData Fitness Tracker
+                  TigerData
                 </a>
-                {' '}— an agentic AI fitness tracker powered by Claude tool-use agents,
-                TimescaleDB, and FastAPI.
+                {' '}— an agentic fitness tracker using Claude tool-use agents and TimescaleDB
+                hypertables deployed on Railway — and{' '}
+                <a
+                  href="https://firehouse-app.web.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="HotZone field resource app, opens in new tab"
+                  className="link-cyan"
+                >
+                  HotZone
+                </a>
+                {', '}a field resource app for firefighters and paramedics built on React and Firebase.
+              </p>
+              <p className="type-body">
+                Currently targeting roles in Support Engineering, Full-Stack / Backend
+                Engineering, and Solutions Engineering — with a long-term direction toward
+                security engineering. Based in Salt Lake City, open to remote.
               </p>
             </div>
 
@@ -171,11 +183,17 @@ export default function AboutPage() {
           </div>
         </section>
 
-          {/* ── Skills ────────────────────────────────────────────────────────
+        {/* ── Skills ────────────────────────────────────────────────────────
             SkillsSection is a 'use client' component — tabbed layout
             with proficiency indicators and staggered entrance animation.
         ──────────────────────────────────────────────────────────────── */}
         <SkillsSection />
+
+        {/* ── How I Ship ────────────────────────────────────────────────────
+            ShipSection is a 'use client' component — CI/CD pipeline SVG,
+            branch strategy diagram, deploy platform cards, YAML snippet.
+        ──────────────────────────────────────────────────────────────── */}
+        <ShipSection />
 
         {/* ── AI Personalizer ───────────────────────────────────────────────
             BioPersonalizer contains its own <section aria-labelledby>

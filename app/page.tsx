@@ -10,15 +10,19 @@ export const metadata: Metadata = {
 const roles = [
   'Full-Stack Engineer',
   'AI & Agentic Systems',
-  'Developer Experience',
   'Support Engineering',
 ]
 
+const techPills = [
+  'React', 'Next.js', 'Python', 'FastAPI',
+  'Claude API', 'TimescaleDB', 'Railway', 'Vercel',
+]
+
 const stats = [
-  { value: '5+',  label: 'Years in tech'       },
-  { value: '10+', label: 'Projects shipped'    },
-  { value: '3',   label: 'Cloud platforms'     },
-  { value: 'AI',  label: 'Agent systems built' },
+  { value: '5+', label: 'Years in tech'         },
+  { value: '7',  label: 'Projects shipped'      },
+  { value: '4',  label: 'Deploy platforms'      },
+  { value: '2',  label: 'Agentic apps in prod'  },
 ]
 
 export default function HomePage() {
@@ -61,7 +65,7 @@ export default function HomePage() {
         {/* Text block */}
         <div style={{ flex: '1 1 400px' }}>
           <p className="type-prompt fade-up fade-up-1" style={{ marginBottom: '16px' }}>
-            <span aria-hidden="true">{'> '}</span>Available for new roles
+            <span aria-hidden="true">{'> '}</span>Available for new roles · Salt Lake City / Remote
           </p>
 
           <h1
@@ -78,29 +82,59 @@ export default function HomePage() {
             role="list"
             aria-label="Specializations"
             className="fade-up fade-up-3"
-            style={{ listStyle: 'none', display: 'flex', flexWrap: 'wrap', gap: '8px', margin: '20px 0 32px' }}
+            style={{ listStyle: 'none', display: 'flex', flexWrap: 'wrap', gap: '8px', margin: '20px 0 28px' }}
           >
-            {roles.map((role) => (
-              <li key={role} className="pill">{role}</li>
+            {roles.map((role, i) => (
+              <li key={role} className={`pill${i === 0 ? ' pill--cyan' : ''}`}>{role}</li>
             ))}
           </ul>
 
           <p
             className="type-body fade-up fade-up-3"
-            style={{ maxWidth: '540px', marginBottom: '40px' }}
+            style={{ maxWidth: '540px', marginBottom: '16px', fontSize: '15px', lineHeight: '1.8' }}
           >
-            Full-Stack and AI Engineer with a deep commitment to developer experience
-            and customer success. I build agentic systems, cloud-native APIs, and the
-            support tooling that keeps them running — bringing 5+ years of technical
-            leadership in customer-facing roles.
+            Full-Stack &amp; AI Engineer. I build agentic systems, cloud-native apps,
+            and the tooling that keeps them running — then support the engineers who depend on them.
+          </p>
+          <p
+            className="type-body fade-up fade-up-3"
+            style={{ maxWidth: '540px', marginBottom: '32px', fontSize: '13px' }}
+          >
+            5+ years spanning full-stack product work, Technical Account Management,
+            and agentic AI systems. Currently shipping in React, Next.js, Python, FastAPI,
+            and the Claude API.
           </p>
 
-          <div className="fade-up fade-up-4" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
-            <Link href="/projects" className="btn btn--primary" style={{ padding: '12px 24px', fontSize: '12px' }}>
-              View Projects ↗
+          {/* Tech pills — secondary signal row */}
+          <ul
+            role="list"
+            aria-label="Core technologies"
+            className="fade-up fade-up-3"
+            style={{ listStyle: 'none', display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '36px' }}
+          >
+            {techPills.map((t) => (
+              <li key={t} style={{
+                fontFamily:    'var(--font-mono)',
+                fontSize:      '10px',
+                letterSpacing: '0.08em',
+                color:         'var(--color-text-tertiary)',
+                padding:       '3px 8px',
+                border:        '1px solid var(--color-border)',
+                borderRadius:  '2px',
+                background:    'var(--color-bg-surface)',
+              }}>{t}</li>
+            ))}
+          </ul>
+
+          <div className="fade-up fade-up-4" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
+            <Link href="/projects" className="btn btn--primary" style={{ padding: '11px 22px', fontSize: '12px' }}>
+              Projects ↗
             </Link>
-            <Link href="/about" className="btn btn--secondary" style={{ padding: '12px 24px', fontSize: '12px' }}>
-              About Me
+            <Link href="/about" className="btn btn--secondary" style={{ padding: '11px 22px', fontSize: '12px' }}>
+              About
+            </Link>
+            <Link href="/support" className="btn btn--secondary" style={{ padding: '11px 22px', fontSize: '12px' }}>
+              Support
             </Link>
           </div>
 
@@ -136,7 +170,7 @@ export default function HomePage() {
             }}
           />
           <Image
-            src="/images/Headshot.jpeg"
+            src="/images/headshot.jpg"
             alt="Zach McEntire, Full-Stack and AI Engineer"
             width={260}
             height={320}

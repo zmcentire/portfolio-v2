@@ -53,9 +53,9 @@ export default function BioPersonalizer() {
     <section
       aria-labelledby="personalizer-heading"
       style={{
-        background:   'var(--surface)',
-        border:       '1px solid var(--border)',
-        borderLeft:   '3px solid var(--cyan)',
+        background:   'var(--color-bg-surface)',
+        border:       '1px solid var(--color-border)',
+        borderLeft:   '3px solid var(--color-accent-cyan)',
         borderRadius: '2px',
         padding:      '32px',
         marginTop:    '64px',
@@ -66,7 +66,7 @@ export default function BioPersonalizer() {
         <p style={{
           fontFamily:    'var(--font-mono)', fontSize: '10px',
           letterSpacing: '0.16em', textTransform: 'uppercase',
-          color:         'var(--cyan)', marginBottom: '8px',
+          color:         'var(--color-accent-cyan)', marginBottom: '8px',
         }}>
           AI-Powered
         </p>
@@ -74,14 +74,14 @@ export default function BioPersonalizer() {
           id="personalizer-heading"
           style={{
             fontFamily: 'var(--font-display)', fontSize: '22px',
-            fontWeight: '600', color: 'var(--text-1)', marginBottom: '8px',
+            fontWeight: '600', color: 'var(--color-text-primary)', marginBottom: '8px',
           }}
         >
           Recruiter Bio Personalizer
         </h2>
         <p style={{
           fontFamily: 'var(--font-mono)', fontSize: '13px',
-          lineHeight: '1.7', color: 'var(--text-2)', maxWidth: '560px',
+          lineHeight: '1.7', color: 'var(--color-text-secondary)', maxWidth: '560px',
         }}>
           Paste a job description below. Claude will rewrite my professional summary
           to match the language and priorities of that specific role.
@@ -96,7 +96,7 @@ export default function BioPersonalizer() {
             display:       'block',
             fontFamily:    'var(--font-mono)', fontSize: '10px',
             letterSpacing: '0.12em', textTransform: 'uppercase',
-            color:         'var(--text-2)', marginBottom: '8px',
+            color:         'var(--color-text-secondary)', marginBottom: '8px',
           }}
         >
           Job Description
@@ -109,11 +109,11 @@ export default function BioPersonalizer() {
           rows={8}
           style={{
             width:          '100%',
-            background:     'var(--surface-2)',
-            border:         '1px solid var(--border)',
+            background:     'var(--color-bg-surface-2)',
+            border:         '1px solid var(--color-border)',
             borderRadius:   '2px',
             padding:        '14px',
-            color:          'var(--text-1)',
+            color:          'var(--color-text-primary)',
             fontFamily:     'var(--font-mono)',
             fontSize:       '13px',
             lineHeight:     '1.6',
@@ -121,8 +121,8 @@ export default function BioPersonalizer() {
             outline:        'none',
             transition:     'border-color 0.2s',
           }}
-          onFocus={(e) => { e.target.style.borderColor = 'var(--border-hover)' }}
-          onBlur={(e)  => { e.target.style.borderColor = 'var(--border)' }}
+          onFocus={(e) => { e.target.style.borderColor = 'var(--color-border-hover)' }}
+          onBlur={(e)  => { e.target.style.borderColor = 'var(--color-border)' }}
         />
       </div>
 
@@ -136,8 +136,8 @@ export default function BioPersonalizer() {
           fontSize:      '12px', fontWeight: '700',
           letterSpacing: '0.10em', textTransform: 'uppercase',
           padding:       '12px 24px',
-          background:    loading || !jd.trim() ? 'var(--surface-2)' : 'var(--cyan)',
-          color:         loading || !jd.trim() ? 'var(--text-3)' : 'var(--obsidian)',
+          background:    loading || !jd.trim() ? 'var(--color-bg-surface-2)' : 'var(--color-accent-cyan)',
+          color:         loading || !jd.trim() ? 'var(--color-text-tertiary)' : 'var(--color-bg-primary)',
           border:        'none', borderRadius: '2px',
           cursor:        loading || !jd.trim() ? 'not-allowed' : 'pointer',
           transition:    'background 0.2s, color 0.2s',
@@ -158,7 +158,7 @@ export default function BioPersonalizer() {
       {error && (
         <p role="alert" style={{
           fontFamily: 'var(--font-mono)', fontSize: '12px',
-          color: 'var(--crimson-lt)', marginTop: '12px',
+          color: 'var(--color-accent-crimson-lt)', marginTop: '12px',
         }}>
           {error}
         </p>
@@ -174,7 +174,7 @@ export default function BioPersonalizer() {
             <p style={{
               fontFamily:    'var(--font-mono)', fontSize: '10px',
               letterSpacing: '0.12em', textTransform: 'uppercase',
-              color:         'var(--brass)',
+              color:         'var(--color-accent-brass)',
             }}>
               {'> '} Tailored Summary
             </p>
@@ -184,10 +184,10 @@ export default function BioPersonalizer() {
                 fontFamily:    'var(--font-mono)', fontSize: '10px',
                 letterSpacing: '0.08em', textTransform: 'uppercase',
                 padding:       '6px 12px',
-                background:    'var(--surface-2)',
-                border:        '1px solid var(--border)',
+                background:    'var(--color-bg-surface-2)',
+                border:        '1px solid var(--color-border)',
                 borderRadius:  '2px',
-                color:         copied ? 'var(--cyan)' : 'var(--text-2)',
+                color:         copied ? 'var(--color-accent-cyan)' : 'var(--color-text-secondary)',
                 cursor:        'pointer',
                 transition:    'color 0.2s, border-color 0.2s',
               }}
@@ -197,15 +197,15 @@ export default function BioPersonalizer() {
           </div>
           <div
             style={{
-              background:   'var(--surface-2)',
-              border:       '1px solid var(--border)',
-              borderLeft:   '2px solid var(--cyan)',
+              background:   'var(--color-bg-surface-2)',
+              border:       '1px solid var(--color-border)',
+              borderLeft:   '2px solid var(--color-accent-cyan)',
               borderRadius: '2px',
               padding:      '20px',
               fontFamily:   'var(--font-mono)',
               fontSize:     '14px',
               lineHeight:   '1.85',
-              color:        'var(--text-1)',
+              color:        'var(--color-text-primary)',
             }}
           >
             {output}
@@ -215,7 +215,7 @@ export default function BioPersonalizer() {
                 style={{
                   display:         'inline-block',
                   width:           '2px', height:  '16px',
-                  background:      'var(--cyan)',
+                  background:      'var(--color-accent-cyan)',
                   marginLeft:      '3px',
                   verticalAlign:   'middle',
                   animation:       'blink 1s step-end infinite',
