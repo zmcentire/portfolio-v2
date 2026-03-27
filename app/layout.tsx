@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     template: '%s | Zach McEntire',
   },
   description:
-    'Full-Stack and AI Engineer specializing in agentic systems, cloud-native APIs, and developer experience. Based in Denver, CO.',
+    'Full-Stack and AI Engineer specializing in agentic systems, cloud-native APIs, and developer experience. Based in Salt Lake City, UT.',
   keywords: ['Zach McEntire', 'Full-Stack Engineer', 'AI Engineer', 'React', 'Next.js', 'Python', 'FastAPI', 'Denver'],
   authors: [{ name: 'Zach McEntire' }],
   openGraph: {

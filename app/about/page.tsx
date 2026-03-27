@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { skills } from '@/lib/data'
 import BioPersonalizer from '@/components/BioPersonalizer'
+import SkillsSection from '@/components/SkillsSection'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -119,7 +119,7 @@ export default function AboutPage() {
                   aria-label="TigerData fitness tracker, opens in new tab"
                   className="link-cyan"
                 >
-                  TigerData
+                  TigerData Fitness Tracker
                 </a>
                 {' '}— an agentic AI fitness tracker powered by Claude tool-use agents,
                 TimescaleDB, and FastAPI.
@@ -171,63 +171,11 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── Skills ────────────────────────────────────────────────────────
-            <section aria-labelledby> ties to the visible h2.
-            The grid uses role="list" on the container and role="listitem"
-            on each card — this is a valid ARIA list pattern when CSS
-            display:grid removes implicit list semantics.
+          {/* ── Skills ────────────────────────────────────────────────────────
+            SkillsSection is a 'use client' component — tabbed layout
+            with proficiency indicators and staggered entrance animation.
         ──────────────────────────────────────────────────────────────── */}
-        <section aria-labelledby="skills-heading">
-          <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '56px' }}>
-
-            <p className="type-eyebrow" style={{ marginBottom: '8px' }}>
-              <span className="accent" aria-hidden="true">// </span>Skills &amp; Stack
-            </p>
-            <h2
-              id="skills-heading"
-              className="type-h2"
-              style={{ marginBottom: '40px', fontSize: 'clamp(32px, 5vw, 48px)' }}
-            >
-              Technical Arsenal
-            </h2>
-
-            {/* role="list" on the grid restores list semantics removed by
-                CSS grid layout in some browser + AT combinations */}
-            <div className="grid-skills" role="list">
-              {skills.map((group, i) => (
-                /*  <article> is correct for a self-contained, independently
-                    meaningful piece of content. Each skill card can stand
-                    alone and makes sense without the surrounding context.
-                    role="listitem" pairs with role="list" on the grid. */
-                <article
-                  key={group.category}
-                  role="listitem"
-                  className={`skill-card fade-up fade-up-${Math.min(i + 1, 5)}`}
-                  aria-labelledby={`skill-cat-${group.category.toLowerCase().replace(/\s+/g, '-')}`}
-                >
-                  {/* h3 — third level; page h1 > section h2 > card h3 */}
-                  <h3
-                    id={`skill-cat-${group.category.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="skill-card__category"
-                  >
-                    {group.category}
-                  </h3>
-
-                  {/* aria-label on the <ul> gives AT a descriptive name
-                      for this specific skill list */}
-                  <ul
-                    className="skill-card__list"
-                    aria-label={`${group.category} skills`}
-                  >
-                    {group.items.map((skill) => (
-                      <li key={skill} className="tag">{skill}</li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+        <SkillsSection />
 
         {/* ── AI Personalizer ───────────────────────────────────────────────
             BioPersonalizer contains its own <section aria-labelledby>

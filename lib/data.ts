@@ -22,32 +22,97 @@ export const fonts = {
 } as const
 
 // ─── Skills Data ──────────────────────────────────────────────────────────────
-export const skills = [
+// Each skill has a proficiency level 1–5 for the visual depth indicator.
+// 5 = daily driver / expert, 4 = strong, 3 = solid working knowledge,
+// 2 = learning / recent, 1 = exposure.
+ 
+export interface Skill {
+  name:  string
+  level: 1 | 2 | 3 | 4 | 5
+}
+ 
+export interface SkillGroup {
+  category:    string
+  tab:         string   // short tab label
+  icon:        string   // single glyph for tab button
+  description: string   // one-line summary shown in the tab panel
+  skills:      Skill[]
+}
+ 
+export const skillGroups: SkillGroup[] = [
   {
-    category: 'Frontend',
-    items: ['React', 'Next.js', 'Angular', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3'],
+    category:    'Frontend',
+    tab:         'Frontend',
+    icon:        '◈',
+    description: 'UI engineering — component architecture, type-safe interfaces, accessibility',
+    skills: [
+      { name: 'React',       level: 5 },
+      { name: 'Next.js',     level: 5 },
+      { name: 'TypeScript',  level: 4 },
+      { name: 'Angular',     level: 4 },
+      { name: 'JavaScript',  level: 5 },
+      { name: 'HTML5',       level: 5 },
+      { name: 'CSS3',        level: 4 },
+      { name: 'Tailwind',    level: 3 },
+    ],
   },
   {
-    category: 'Backend',
-    items: ['Python', 'Node.js', 'FastAPI', 'Express.js', 'C#', '.NET', 'REST APIs', 'Firebase'],
+    category:    'Backend',
+    tab:         'Backend',
+    icon:        '▸',
+    description: 'Server-side systems — APIs, scripting, databases, runtime environments',
+    skills: [
+      { name: 'Python',      level: 4 },
+      { name: 'FastAPI',     level: 4 },
+      { name: 'Node.js',     level: 4 },
+      { name: 'Express.js',  level: 4 },
+      { name: 'C# / .NET',   level: 3 },
+      { name: 'REST APIs',   level: 5 },
+      { name: 'Firebase',    level: 4 },
+      { name: 'Bash',        level: 3 },
+    ],
   },
   {
-    category: 'AI & Data',
-    items: ['Claude API', 'Prompt Engineering', 'Tool-Use Agents', 'TimescaleDB', 'MongoDB', 'PostgreSQL'],
+    category:    'AI & Data',
+    tab:         'AI & Data',
+    icon:        '⬡',
+    description: 'Agentic systems, LLM integration, time-series data, vector storage',
+    skills: [
+      { name: 'Claude API',         level: 5 },
+      { name: 'Tool-Use Agents',    level: 5 },
+      { name: 'Prompt Engineering', level: 4 },
+      { name: 'TimescaleDB',        level: 4 },
+      { name: 'PostgreSQL',         level: 3 },
+      { name: 'MongoDB',            level: 3 },
+      { name: 'Plotly',             level: 3 },
+      { name: 'Streamlit',          level: 3 },
+    ],
   },
   {
-    category: 'Cloud & DevOps',
-    items: ['GitHub Actions', 'Railway', 'Vercel', 'Netlify', 'Firebase Hosting', 'CI/CD', 'Bash Scripting'],
+    category:    'Engineering',
+    tab:         'Engineering',
+    icon:        '⚙',
+    description: 'Cloud, CI/CD, DevOps, enterprise support, system debugging',
+    skills: [
+      { name: 'GitHub Actions',    level: 4 },
+      { name: 'Railway',           level: 4 },
+      { name: 'Vercel',            level: 4 },
+      { name: 'Netlify',           level: 4 },
+      { name: 'Linux',             level: 4 },
+      { name: 'Networking',        level: 4 },
+      { name: 'TAM / Support Eng', level: 5 },
+      { name: 'Technical Docs',    level: 5 },
+      { name: 'Git',               level: 5 },
+      { name: 'Postman',           level: 4 },
+    ],
   },
-  {
-    category: 'Support & Systems',
-    items: ['Technical Account Management', 'Linux', 'Windows', 'macOS', 'Networking', 'Enterprise Storage', 'Technical Documentation'],
-  },
-  {
-    category: 'Tools',
-    items: ['Git', 'Postman', 'Adobe Creative Cloud', 'Microsoft Suite', 'WordPress'],
-  },
-] as const
+]
+ 
+// Legacy export — kept so existing components don't break during migration
+export const skills = skillGroups.map(g => ({
+  category: g.category,
+  items: g.skills.map(s => s.name),
+}))
 
 // ─── Projects Data ────────────────────────────────────────────────────────────
 export type ProjectStatus = 'live' | 'offline' | 'issue'
