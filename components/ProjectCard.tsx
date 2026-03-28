@@ -42,7 +42,11 @@ export default function ProjectCard({ project }: { project: Project }) {
           src={project.image}
           alt=""
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"
+          quality={60}
+          sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 360px"
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR42mPg5eUHAABUACqyT0IVAAAAAElFTkSuQmCC"
+          loading="lazy"
         />
         {/* Crimson RGB-split layer — offset opposite to the cyan ::after */}
         <div className="glitch-crimson" />

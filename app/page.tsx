@@ -2,9 +2,21 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import HeroSceneLoader from '@/components/HeroSceneLoader'
+import { RESUME_URL } from '@/lib/constants'
 
 export const metadata: Metadata = {
-  title: 'Zach McEntire — Full-Stack & AI Engineer',
+  title:       'Zach McEntire — Full-Stack & AI Engineer',
+  description: 'Full-Stack & AI Engineer — agentic systems, cloud-native APIs, and the support tooling that keeps them running. Available for new roles.',
+  alternates:  { canonical: 'https://zachmcentire.dev' },
+  openGraph: {
+    title:       'Zach McEntire — Full-Stack & AI Engineer',
+    description: 'Full-Stack & AI Engineer — agentic systems, cloud-native APIs, and the support tooling that keeps them running.',
+    url:         'https://zachmcentire.dev',
+  },
+  twitter: {
+    title:       'Zach McEntire — Full-Stack & AI Engineer',
+    description: 'Full-Stack & AI Engineer — agentic systems, cloud-native APIs, and the support tooling that keeps them running.',
+  },
 }
 
 const roles = [
@@ -136,6 +148,15 @@ export default function HomePage() {
             <Link href="/support" className="btn btn--secondary" style={{ padding: '11px 22px', fontSize: '12px' }}>
               Support
             </Link>
+            <a
+              href={RESUME_URL}
+              download="zach-mcentire-resume.pdf"
+              aria-label="Download resume PDF"
+              className="btn btn--ghost"
+              style={{ padding: '11px 22px', fontSize: '12px' }}
+            >
+              ↓ Resume
+            </a>
           </div>
 
           <nav aria-label="Social profiles" className="fade-up fade-up-5" style={{ marginTop: '40px' }}>
@@ -170,11 +191,15 @@ export default function HomePage() {
             }}
           />
           <Image
-            src="/images/headshot.jpg"
+            src="/images/Headshot.jpeg"
             alt="Zach McEntire, Full-Stack and AI Engineer"
             width={260}
             height={320}
             priority
+            quality={90}
+            placeholder="blur"
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR42mMQFpECAAB/AEJqxrfGAAAAAElFTkSuQmCC"
+            sizes="(max-width: 640px) 220px, 260px"
             style={{
               objectFit:      'cover',
               objectPosition: 'center top',

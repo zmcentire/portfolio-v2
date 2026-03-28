@@ -20,13 +20,32 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const project = projects.find((p) => p.id === params.slug)
   if (!project) return { title: 'Project not found' }
+
+  const url = `https://zachmcentire.dev/projects/${project.id}`
+
   return {
     title:       `${project.title} — Case Study`,
     description: project.description,
+    alternates:  { canonical: url },
     openGraph: {
-      title:       `${project.title} — Case Study | Zach McEntire`,
+      title:       `${project.title} — Case Study`,
       description: project.description,
-      images:      [{ url: project.image }],
+      url,
+      // /projects/[slug]/opengraph-image.tsx generates a custom card
+      // per project at build time. metadataBase in layout.tsx resolves
+      // this to the full absolute URL for social crawlers.
+      images: [{
+        url:    `/projects/${project.id}/opengraph-image`,
+        width:  1200,
+        height: 630,
+        alt:    `${project.title} — architecture and case study`,
+      }],
+    },
+    twitter: {
+      card:        'summary_large_image',
+      title:       `${project.title} — Case Study`,
+      description: project.description,
+      images:      [`/projects/${project.id}/opengraph-image`],
     },
   }
 }

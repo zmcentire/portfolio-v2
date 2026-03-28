@@ -3,9 +3,18 @@ import Link from 'next/link'
 import TriageFlowchart from '@/components/TriageFlowchart'
 
 export const metadata: Metadata = {
-  title: 'Support Engineering',
-  description:
-    'Support engineering methodology — issue triage, debugging workflows, escalation frameworks, and technical documentation. 5+ years of Technical Support and Technical Account Management.',
+  title:       'Support Engineering',
+  description: 'Support engineering methodology and practice — issue triage decision trees, debugging war stories, escalation frameworks, and technical documentation. 5+ years of TSE and TAM experience.',
+  alternates:  { canonical: 'https://zachmcentire.dev/support' },
+  openGraph: {
+    title:       'Support Engineering — Zach McEntire',
+    description: 'Issue triage frameworks, debugging methodology, escalation guides, and technical documentation from 5+ years of TSE and TAM experience.',
+    url:         'https://zachmcentire.dev/support',
+  },
+  twitter: {
+    title:       'Support Engineering — Zach McEntire',
+    description: 'Issue triage frameworks, debugging methodology, and escalation guides from 5+ years of TSE/TAM experience.',
+  },
 }
 
 // ─── Section heading helper ───────────────────────────────────────────────────

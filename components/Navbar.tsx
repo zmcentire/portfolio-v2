@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { RESUME_URL } from '@/lib/constants'
 
 // ─── useScrollPosition hook ───────────────────────────────────────────────────
 // Returns scroll Y as a number, throttled to animation frames.
@@ -60,8 +61,6 @@ const NAV_LINKS = [
   { href: '/support',  label: 'Support'  },
 ]
 
-const RESUME_URL =
-  'https://drive.google.com/file/d/1o6YLTJYDMKCfSPTZ4n80DPPWaRRJbY2i/view?usp=sharing'
 
 // ─── Animated hamburger SVG ───────────────────────────────────────────────────
 // Three lines morph into an X via CSS transform — no Unicode glyphs.
@@ -237,13 +236,12 @@ export default function Navbar() {
             <li>
               <a
                 href={RESUME_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Download resume, opens in new tab"
+                download="zach-mcentire-resume.pdf"
+                aria-label="Download resume PDF"
                 className="btn btn--primary"
                 style={{ padding: '7px 16px', fontSize: '10px', letterSpacing: '0.12em' }}
               >
-                Resume ↓
+                ↓ Resume
               </a>
             </li>
           </ul>

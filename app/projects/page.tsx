@@ -3,9 +3,18 @@ import { projects } from '@/lib/data'
 import ProjectCard from '@/components/ProjectCard'
 
 export const metadata: Metadata = {
-  title: 'Projects',
-  description:
-    'Full-stack projects spanning AI agents, cloud-native APIs, React applications, and Firebase deployments.',
+  title:       'Projects',
+  description: 'Full-stack and AI projects — TigerData agentic fitness tracker, HotZone field resource app, Poly Platform, and more. Built with React, Next.js, Python, FastAPI, and the Claude API.',
+  alternates:  { canonical: 'https://zachmcentire.dev/projects' },
+  openGraph: {
+    title:       'Projects — Zach McEntire',
+    description: 'Agentic AI systems, cloud-native apps, and support tooling. TigerData, HotZone, Poly Platform, and more.',
+    url:         'https://zachmcentire.dev/projects',
+  },
+  twitter: {
+    title:       'Projects — Zach McEntire',
+    description: 'Agentic AI systems, cloud-native apps, and support tooling. TigerData, HotZone, Poly Platform, and more.',
+  },
 }
 
 export default function ProjectsPage() {

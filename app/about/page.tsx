@@ -1,13 +1,23 @@
 import type { Metadata } from 'next'
+import { RESUME_URL } from '@/lib/constants'
 import Image from 'next/image'
 import BioPersonalizer from '@/components/BioPersonalizer'
 import SkillsSection from '@/components/SkillsSection'
 import ShipSection   from '@/components/ShipSection'
 
 export const metadata: Metadata = {
-  title: 'About',
-  description:
-    'Full-Stack & AI Engineer — agentic systems, cloud-native APIs, support tooling. 5+ years spanning product engineering, TAM, and AI. Based in Salt Lake City.',
+  title:       'About',
+  description: 'Full-Stack & AI Engineer with 5+ years across product engineering, Technical Account Management, and agentic AI systems. Based in Salt Lake City, open to remote.',
+  alternates:  { canonical: 'https://zachmcentire.dev/about' },
+  openGraph: {
+    title:       'About Zach McEntire — Full-Stack & AI Engineer',
+    description: 'Full-Stack & AI Engineer with 5+ years across product engineering, TAM, and agentic AI systems. Salt Lake City / Remote.',
+    url:         'https://zachmcentire.dev/about',
+  },
+  twitter: {
+    title:       'About Zach McEntire — Full-Stack & AI Engineer',
+    description: 'Full-Stack & AI Engineer with 5+ years across product engineering, TAM, and agentic AI systems.',
+  },
 }
 
 export default function AboutPage() {
@@ -39,6 +49,10 @@ export default function AboutPage() {
               width={220}
               height={270}
               priority
+              quality={90}
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR42mMQFpECAAB/AEJqxrfGAAAAAElFTkSuQmCC"
+              sizes="(max-width: 640px) 220px, 220px"
               style={{
                 objectFit:      'cover',
                 objectPosition: 'center top',
@@ -168,14 +182,13 @@ export default function AboutPage() {
                 ))}
                 <li>
                   <a
-                    href="https://drive.google.com/file/d/1o6YLTJYDMKCfSPTZ4n80DPPWaRRJbY2i/view?usp=sharing"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Download resume, opens in new tab"
+                    href={RESUME_URL}
+                    download="zach-mcentire-resume.pdf"
+                    aria-label="Download resume PDF"
                     className="btn btn--primary"
                     style={{ padding: '9px 18px', fontSize: '11px' }}
                   >
-                    ↓ Resume
+                    ↓ Resume PDF
                   </a>
                 </li>
               </ul>
