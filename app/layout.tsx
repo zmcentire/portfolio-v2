@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Cormorant, JetBrains_Mono } from 'next/font/google'
 import Navbar from '@/components/Navbar'
 import SiteFooter from '@/components/SiteFooter'
+import { Analytics }     from '@vercel/analytics/react'
+import { SpeedInsights }  from '@vercel/speed-insights/next'
 import './globals.css'
 
 // ── Display font: Cormorant ───────────────────────────────────────────────
@@ -115,6 +117,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
         <main id="main-content">{children}</main>
         <SiteFooter />
+        {/* Vercel Analytics — privacy-friendly, no cookies, GDPR-compliant.
+            Tracks page views and custom events. Free on Vercel's Hobby plan.
+            SpeedInsights captures Core Web Vitals (LCP, CLS, FID/INP) per route. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

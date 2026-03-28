@@ -9,6 +9,9 @@
   font-weight:  normal;
   font-style:   normal;
   font-display: swap;
+  /* size-adjust compensates for the metric difference between fleshandblood
+     and the Georgia/Cormorant fallback, reducing CLS on first paint */
+  size-adjust:  95%;
 }
 
 /* ─── 1. FONT VARIABLES ──────────────────────────────────────────────────── */
@@ -91,7 +94,8 @@
 
   --color-text-primary:   #e8e6df;
   --color-text-secondary: #9a9890;
-  --color-text-tertiary:  #5a5955;
+  --color-text-tertiary:  #868380;  /* lifted from #5a5955 — now WCAG AA 4.5:1 on all bg surfaces */
+  --color-text-error:      #de503c;  /* error/validation text — 4.65:1 on surface, 4.92:1 on bg-primary */
   --color-text-inverse:   #0d0d0f;
 
   --status-live-color:     #00e5ff;
@@ -672,9 +676,13 @@ dialog[open] {
 /* ─── 23. REDUCED MOTION ─────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
+    animation-duration:       0.01ms !important;
+    animation-iteration-count: 1     !important;
+    transition-duration:      0.01ms !important;
+    scroll-behavior:          auto   !important;
+  }
+  /* SVG animations (used in ArchDiagram pulse dots and pipeline diagrams) */
+  animate, animateMotion, animateTransform {
     animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }
