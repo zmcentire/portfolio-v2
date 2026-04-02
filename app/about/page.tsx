@@ -97,7 +97,7 @@ export default function AboutPage() {
             <div className="fade-up fade-up-3" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <p className="type-body">
                 I build agentic systems, cloud-native APIs, and the support tooling that keeps them
-                running — then I support the engineers who depend on them. My background spans
+                running and then I support the engineers who depend on them. My background spans
                 full-stack product engineering, Technical Account Management, and incident command,
                 which means I can ship the feature, debug the integration, and explain both
                 to a customer on the same day. Sometimes all three in the same afternoon.
@@ -105,7 +105,7 @@ export default function AboutPage() {
               <p className="type-body">
                 Most recently I deployed and triaged live network infrastructure for the{' '}
                 <span style={{ color: 'var(--color-text-primary)', fontWeight: 500 }}>Sundance Film Festival</span>
-                {' '}— seven venues, 20,000+ attendees, zero tolerance for downtime during screenings.
+                {' '}: seven venues, 20,000+ attendees, zero tolerance for downtime during screenings.
                 Before that, I led incident command at{' '}
                 <span style={{ color: 'var(--color-text-primary)', fontWeight: 500 }}>ActionIQ</span>
                 {' '}on production CDP failures, built agentic AI tooling at the intersection of{' '}
@@ -119,12 +119,10 @@ export default function AboutPage() {
                 {', '}and designed 6 custom ASP.NET web pages for Splunk's partner portal as a TAM at Impartner.
               </p>
               <p className="type-body">
-                Off the clock: I build electric guitars by hand — most recently a Firebird-inspired
-                body carved from scratch with a custom pine hardshell case. I take weightlifting and
-                pizza with equal seriousness. Elder emo — industrial, metal, post-rock — it was never
+                Off the clock:  I take weightlifting and pizza with equal seriousness. Elder emo: industrial, metal, post-rock. It was never
                 a phase. Cosmic horror enthusiast. Top three games: Bloodborne, Ocarina of Time, The
                 Last of Us. Top three films: Blade Runner, Inception, Shawshank. Currently targeting
-                Support Engineering, Full-Stack/Backend, and Solutions Engineering roles — remote
+                Support Engineering, Full-Stack/Backend, and Solutions Engineering roles, remote
                 preferred, Salt Lake City based.</p>
             </div>
 

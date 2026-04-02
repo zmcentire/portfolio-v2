@@ -44,46 +44,46 @@ const WAR_STORIES = [
   {
     title:   'ActionIQ — CDP Data Export Failures (Transient or Systemic?)',
     context: 'Customer Support Engineer · ActionIQ (CDP) · Severity: High · Production',
-    outcome: 'Identified memory-induced ingest timeouts as the root cause of transient-looking export failures. Worked with Engineering to scale worker allocation — resolved the failures permanently without disrupting the customer.',
+    outcome: 'Identified memory-induced ingest timeouts as the root cause of transient-looking export failures. Worked with Engineering to scale worker allocation. Resolved the failures permanently without disrupting the customer.',
     sections: [
       {
         label: 'Symptom',
-        text:  'A premium support customer was experiencing a higher volume of data export failures than expected. The initial error indicated an expected output file was blank. Critically — these jobs succeeded on retry, which initially pointed to a transient infrastructure issue rather than a systemic defect.',
+        text:  'A premium support customer was experiencing a higher volume of data export failures than expected. The initial error indicated an expected output file was blank. Critically, these jobs succeeded on retry, which initially pointed to a transient infrastructure issue rather than a systemic defect.',
       },
       {
         label: 'Triage approach',
-        text:  'Retries masking failures is a classic signal that something upstream is flaky under load, not randomly failing. I pulled the job timeline in Datadog for the failing export runs and traced backward through the downstream dependency chain — specifically looking at what the export job depended on before it could run.',
+        text:  'Retries masking failures is a classic signal that something upstream is flaky under load, not randomly failing. I pulled the job timeline in Datadog for the failing export runs and traced backward through the downstream dependency chain, specifically looking at what the export job depended on before it could run.',
       },
       {
         label: 'Root cause',
-        text:  'The daily ingest tasks that fed the export pipeline were timing out due to memory pressure. The exports themselves were not the problem — they were waiting on data that was never fully materialized. Once the ingest completed on retry, the export succeeded. The memory issue was invisible at the export layer.',
+        text:  'The daily ingest tasks that fed the export pipeline were timing out due to memory pressure. The exports themselves were not the problem, they were waiting on data that was never fully materialized. Once the ingest completed on retry, the export succeeded. The memory issue was invisible at the export layer.',
       },
       {
         label: 'Resolution',
-        text:  'Escalated to Engineering with a clear packet: exact job IDs, Datadog trace screenshots, the ingest timeout timestamps aligned to the export failure timestamps, and a specific ask — increase the worker allocation for this customer\'s ingest jobs. Engineering increased allotted workers. Ingest tasks completed within their time window. Export failures stopped.',
+        text:  'Escalated to Engineering with a clear packet: exact job IDs, Datadog trace screenshots, the ingest timeout timestamps aligned to the export failure timestamps, and a specific ask: increase the worker allocation for this customer\'s ingest jobs. Engineering increased allotted workers. Ingest tasks completed within their time window. Export failures stopped.',
       },
       {
         label: 'Customer communication',
-        text:  'Maintained proactive communication with the customer throughout — explained what we knew (export jobs were failing), what we were investigating (upstream dependencies), and the timeline. Avoided vague reassurances. Sent a summary with root cause and resolution after Engineering deployed the fix.',
+        text:  'Maintained proactive communication with the customer throughout, explained what we knew (export jobs were failing), what we were investigating (upstream dependencies), and the timeline. Avoided vague reassurances. Sent a summary with root cause and resolution after Engineering deployed the fix.',
       },
     ],
   },
   {
     title:   'Impartner TAM — Splunk Partner Portal Rebrand (6 Custom ASPX Pages)',
     context: 'Technical Account Manager · Impartner · Splunk Partner Portal · Duration: 3 months',
-    outcome: 'Delivered 6 new ASP.NET/ASPX web pages and a new badge navigation system enabling Splunk\'s partner recognition program across product lines — on schedule, tested against acceptance criteria I wrote from stakeholder requirements.',
+    outcome: 'Delivered 6 new ASP.NET/ASPX web pages and a new badge navigation system enabling Splunk\'s partner recognition program across product lines on schedule, tested against acceptance criteria I wrote from stakeholder requirements.',
     sections: [
       {
         label: 'The project',
-        text:  'Splunk was rebranding their partner portal and launching a new sales badge program — recognition for partners who achieved product certification across different Splunk product lines. They needed 6 new web pages, a new navigation system for the badges, and updated components on existing sales partner profiles and lead/opportunity dashboards.',
+        text:  'Splunk was rebranding their partner portal and launching a new sales badge program with recognition for partners who achieved product certification across different Splunk product lines. They needed 6 new web pages, a new navigation system for the badges, and updated components on existing sales partner profiles and lead/opportunity dashboards.',
       },
       {
         label: 'Stakeholder coordination',
-        text:  'The portal rebrand touched RevOps, Marketing, UI/UX, and the Salesforce Admin team — all with different priorities and different definitions of done. I led requirements gathering across all four teams, translated business requirements into technical acceptance criteria, and served as the single point of contact for questions about portal behavior.',
+        text:  'The portal rebrand touched RevOps, Marketing, UI/UX, and the Salesforce Admin team, all with different priorities and different definitions of done. I led requirements gathering across all four teams, translated business requirements into technical acceptance criteria, and served as the single point of contact for questions about portal behavior.',
       },
       {
         label: 'Technical implementation',
-        text:  'The pages were built in ASP.NET using ASPX, C#, HTML, CSS, and JavaScript. The backend pulled Salesforce data via optimized SQL queries against the Salesforce-backed data source — partner profile fields, opportunity data, and badge eligibility. Getting query performance right was non-trivial: I applied execution plan analysis and window function tuning to keep page load times acceptable for the partner-facing pages.',
+        text:  'The pages were built in ASP.NET using ASPX, C#, HTML, CSS, and JavaScript. The backend pulled Salesforce data via optimized SQL queries against the Salesforce-backed data source, partner profile fields, opportunity data, and badge eligibility. Getting query performance right was non-trivial: I applied execution plan analysis and window function tuning to keep page load times acceptable for the partner-facing pages.',
       },
       {
         label: 'Testing and delivery',
@@ -103,7 +103,7 @@ const METHODOLOGIES = [
   {
     icon:  '②',
     title: 'Controlled Reproduction',
-    body:  'Reproduce in isolation before touching production. Build the minimum environment that shows the issue — this eliminates environmental variables and prevents compounding the problem during investigation.',
+    body:  'Reproduce in isolation before touching production. Build the minimum environment that shows the issue, this eliminates environmental variables and prevents compounding the problem during investigation.',
   },
   {
     icon:  '③',
@@ -174,7 +174,7 @@ export default function SupportPage() {
           <p className="type-body" style={{ maxWidth: '620px', fontSize: '15px' }}>
             5+ years of Technical Support and Technical Account Management across enterprise
             software, cloud platforms, and developer tooling. This page documents
-            the process — not just the outcomes.
+            the process, not just the outcomes.
           </p>
 
           <div style={{ display: 'flex', gap: '24px', marginTop: '32px', flexWrap: 'wrap' }}>
@@ -210,7 +210,7 @@ export default function SupportPage() {
 
           <p className="type-body" style={{ maxWidth: '640px', marginBottom: '36px', fontSize: '14px' }}>
             Every issue enters the same decision tree regardless of severity. The process
-            exists to prevent cognitive shortcuts — the temptation to jump to a known solution
+            exists to prevent cognitive shortcuts, the temptation to jump to a known solution
             before confirming the actual problem.
           </p>
 

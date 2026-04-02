@@ -152,14 +152,14 @@ export const projects: Project[] = [
       'A production-grade API health and incident management system. Real-time endpoint polling via a BullMQ job pipeline, WebSocket-streamed live event log, TimescaleDB continuous aggregates for sub-millisecond dashboard queries, and Twilio/SendGrid alerting on threshold violations.',
     highlights: [
       'BullMQ 4-stage pipeline: scheduler → checker → evaluator → notifier',
-      'TimescaleDB continuous aggregates — dashboard latency queries sub-millisecond at scale',
-      'WebSocket broadcast on every check insert — zero-latency live event log',
+      'TimescaleDB continuous aggregates, dashboard latency queries sub-millisecond at scale',
+      'WebSocket broadcast on every check insert, zero-latency live event log',
       'Twilio SMS + SendGrid email alerts on SLA threshold violations',
       'MTTR auto-calculated via generated TimescaleDB column',
       '64-test suite: Vitest + supertest covering workers, routes, and aggregates',
     ],
     challenges:
-      'Designing the BullMQ concurrency model to handle 1,200 endpoints per worker at 60s intervals without blocking the event loop. The evaluator stage required careful rule engine logic against continuous aggregate views rather than raw rows — wrong query patterns caused full table scans that would spike at scale.',
+      'Designing the BullMQ concurrency model to handle 1,200 endpoints per worker at 60s intervals without blocking the event loop. The evaluator stage required careful rule engine logic against continuous aggregate views rather than raw rows wrong query patterns caused full table scans that would spike at scale.',
     future: [
       'Multi-user authentication and team workspaces',
       'Custom alert channels (Slack webhook, PagerDuty integration)',
@@ -175,7 +175,7 @@ export const projects: Project[] = [
       sections: [
         {
           heading: 'The problem',
-          body:    `Support engineers spend too much time discovering incidents through customer reports rather than internal monitoring. SENTINEL/OPS was built to demonstrate what production-grade API health tooling looks like — real polling, real alerting, real SLA tracking — not a mocked dashboard.`,
+          body:    `Support engineers spend too much time discovering incidents through customer reports rather than internal monitoring. SENTINEL/OPS was built to demonstrate what production-grade API health tooling looks like: real polling, real alerting, real SLA tracking, not a mocked dashboard.`,
         },
         {
           heading: 'Architecture decisions',
@@ -190,7 +190,7 @@ export const projects: Project[] = [
         },
         {
           heading: 'TimescaleDB as the backbone',
-          body:    `TimescaleDB's continuous aggregates pre-compute 1-minute windowed averages of latency, uptime, and error rates. Dashboard queries hit the \`check_results_1min\` materialized view — sub-millisecond regardless of data volume. The generated \`mttr_minutes\` column auto-calculates mean time to recovery when \`resolved_at\` is written, eliminating application-layer math.`,
+          body:    `TimescaleDB's continuous aggregates pre-compute 1-minute windowed averages of latency, uptime, and error rates. Dashboard queries hit the \`check_results_1min\` materialized view, sub-millisecond regardless of data volume. The generated \`mttr_minutes\` column auto-calculates mean time to recovery when \`resolved_at\` is written, eliminating application-layer math.`,
         },
         {
           heading: 'Testing strategy',
@@ -209,14 +209,14 @@ export const projects: Project[] = [
       'An AI-powered support ticket dashboard demonstrating production-grade support tooling patterns. Claude analyzes each ticket and returns structured JSON (category, priority, sentiment, tags, summary, draft reply). Keyboard-driven queue navigation, SLA tracking, bulk triage, and a live stats bar.',
     highlights: [
       'Claude returns strict structured JSON validated against TypeScript union types',
-      'Invalid AI values fall back gracefully — no crashes on bad model output',
+      'Invalid AI values fall back gracefully. No crashes on bad model output',
       'Bulk triage queues all untriaged tickets sequentially with progress indicator',
       'SLA color bar per ticket: green ≥70%, yellow ≥40%, red <40%',
-      'J/K keyboard navigation, Esc to deselect — no mouse required',
+      'J/K keyboard navigation, Esc to deselect, no mouse required',
       '64-test suite: 16 utility tests, 35 Zustand store tests, 13 API route tests',
     ],
     challenges:
-      `The hardest part was making Claude's structured output reliable. Free-form JSON from an LLM fails unpredictably — wrong field names, out-of-range values, null where a union type is expected. The solution was strict prompt engineering plus server-side validation that falls back to the ticket's original values on any invalid field, rather than crashing or returning partial data.`,
+      `The hardest part was making Claude's structured output reliable. Free-form JSON from an LLM fails unpredictably like wrong field names, out-of-range values, null where a union type is expected. The solution was strict prompt engineering plus server-side validation that falls back to the ticket's original values on any invalid field, rather than crashing or returning partial data.`,
     future: [
       'Real Zendesk/Intercom data connector via webhook',
       'Historical triage accuracy metrics',
@@ -232,7 +232,7 @@ export const projects: Project[] = [
       sections: [
         {
           heading: 'The problem',
-          body:    'Support engineers spend significant time on the first-pass of every ticket — reading it, deciding priority, deciding category, drafting an opening reply. None of that requires human judgment. SupportDesk demonstrates how an AI layer handles that first pass so agents can focus on resolution.',
+          body:    'Support engineers spend significant time on the first-pass of every ticket: reading it, deciding priority, deciding category, drafting an opening reply. None of that requires human judgment. SupportDesk demonstrates how an AI layer handles that first pass so agents can focus on resolution.',
         },
         {
           heading: 'Structured AI output with fallback',
@@ -241,7 +241,7 @@ export const projects: Project[] = [
             'Claude returns: category, priority, sentiment, tags[], summary, draftReply',
             'Each field validated against its TypeScript union before state update',
             'Invalid value → field falls back to ticket original, no crash, no partial state',
-            'API key stays server-side — all Claude calls go through Next.js Route Handlers',
+            'API key stays server-side. All Claude calls go through Next.js Route Handlers',
           ],
         },
         {
@@ -265,7 +265,7 @@ export const projects: Project[] = [
       'An agentic powerlifting tracker built on TimescaleDB. Ingests workout data via natural language, stores sets as time-series data in hypertables, and projects 1RM progress toward 2026 PR targets using continuous aggregates and linear regression.',
     highlights: [
       'AI coaching interface powered by Claude tool-use agents',
-      'Natural language workout ingestion — no manual form entry',
+      'Natural language workout ingestion. No manual form entry',
       'Real-time Streamlit dashboard with Plotly visualizations',
       'Linear regression 1RM projections against PR targets',
     ],
@@ -290,7 +290,7 @@ export const projects: Project[] = [
         },
         {
           heading: 'Approach',
-          body:    `I built a Claude tool-use agent as the ingestion layer. The agent receives natural-language input, calls structured tools to parse and validate workout data, then writes time-series records to TimescaleDB hypertables. This kept the AI layer stateless — each ingestion call is independent.`,
+          body:    `I built a Claude tool-use agent as the ingestion layer. The agent receives natural-language input, calls structured tools to parse and validate workout data, then writes time-series records to TimescaleDB hypertables. This kept the AI layer stateless, each ingestion call is independent.`,
           items: [
             'Claude tool-use agents for NL → structured data parsing',
             'TimescaleDB hypertables for time-series workout storage',
@@ -301,11 +301,11 @@ export const projects: Project[] = [
         },
         {
           heading: 'The hard part',
-          body:    `TimescaleDB continuous aggregates require careful schema design upfront. Hypertable chunk intervals need to match your query patterns — too coarse and real-time inserts lag; too fine and the aggregation overhead spikes. I ended up with 1-week chunks and daily aggregates, which gave sub-100ms reads for the dashboard while keeping write latency under 20ms.`,
+          body:    `TimescaleDB continuous aggregates require careful schema design upfront. Hypertable chunk intervals need to match your query patterns, too coarse and real-time inserts lag; too fine and the aggregation overhead spikes. I ended up with 1-week chunks and daily aggregates, which gave sub-100ms reads for the dashboard while keeping write latency under 20ms.`,
         },
         {
           heading: 'What I learned',
-          body:    `Tool-use agents are significantly more reliable than free-form LLM output for structured data extraction. By defining strict tool schemas, the agent can't hallucinate fields or types — the API rejects malformed calls before they reach the database.`,
+          body:    `Tool-use agents are significantly more reliable than free-form LLM output for structured data extraction. By defining strict tool schemas, the agent can't hallucinate fields or types, the API rejects malformed calls before they reach the database.`,
         },
       ],
     },
@@ -344,7 +344,7 @@ export const projects: Project[] = [
       'Designed for high-pressure, low-latency field use',
     ],
     challenges:
-      `The UX challenge was building an interface that works under genuine stress — large tap targets, minimal cognitive load, and fast lookup. Data architecture in Firebase required careful normalization to support fast county-filtered queries.`,
+      `The UX challenge was building an interface that works under genuine stress, large tap targets, minimal cognitive load, and fast lookup. Data architecture in Firebase required careful normalization to support fast county-filtered queries.`,
     demo:  'https://firehouse-app.web.app',
     image: '/images/hotzone-logo.png',
     caseStudy: {
@@ -354,7 +354,7 @@ export const projects: Project[] = [
       sections: [
         {
           heading: 'The problem',
-          body:    `Firefighters and paramedics in the field need to look up drug administration protocols, hospital locations, and building hazard classifications quickly — often in high-noise, low-light conditions with gloved hands. Existing solutions were PDFs or cluttered web pages designed for desktop use.`,
+          body:    `Firefighters and paramedics in the field need to look up drug administration protocols, hospital locations, and building hazard classifications quickly, often in high-noise, low-light conditions with gloved hands. Existing solutions were PDFs or cluttered web pages designed for desktop use.`,
         },
         {
           heading: 'Design constraints',
@@ -368,11 +368,11 @@ export const projects: Project[] = [
         },
         {
           heading: 'Architecture',
-          body:    `Firebase Firestore was the right choice here — no backend server to maintain, real-time sync for protocol updates pushed by administrators, and offline persistence built in. I normalized the data across three collections (protocols, hospitals, hazards) with county as the shared foreign key, allowing fast filtered reads without joins.`,
+          body:    `Firebase Firestore was the right choice here, no backend server to maintain, real-time sync for protocol updates pushed by administrators, and offline persistence built in. I normalized the data across three collections (protocols, hospitals, hazards) with county as the shared foreign key, allowing fast filtered reads without joins.`,
         },
         {
           heading: 'What I learned',
-          body:    `Building for stress users is a different discipline than building for casual users. Every interaction has to be forgiving — fat-finger friendly, never requiring precision, always showing the most likely option first.`,
+          body:    `Building for stress users is a different discipline than building for casual users. Every interaction has to be forgiving: fat-finger friendly, never requiring precision, always showing the most likely option first.`,
         },
       ],
     },
@@ -386,7 +386,7 @@ export const projects: Project[] = [
     description:
       'A random quote generator drawing from a custom-built library of Stoic philosophy quotes across three themes: Adversity, Mortality, and Mental Wellness.',
     highlights: [
-      'Custom quote library — not a third-party data source',
+      'Custom quote library, not a third-party data source',
       'Quotes organized by theme: Adversity, Mortality, Mental Wellness',
       'Randomized selection with philosopher attribution',
     ],
@@ -402,7 +402,7 @@ export const projects: Project[] = [
       sections: [
         {
           heading: 'The problem',
-          body:    `The original app fetched quotes from a custom REST API hosted on Heroku's free tier. When Heroku ended free dynos in November 2022, the API went offline — taking the app with it. This was a useful failure: it exposed a fragile architectural decision I had made early on.`,
+          body:    `The original app fetched quotes from a custom REST API hosted on Heroku's free tier. When Heroku ended free dynos in November 2022, the API went offline taking the app with it. This was a useful failure: it exposed a fragile architectural decision I had made early on.`,
         },
         {
           heading: 'The migration',
@@ -411,12 +411,12 @@ export const projects: Project[] = [
             'Removed axios dependency entirely',
             'Migrated 30+ quotes across 3 themes to quotes.json',
             'Replaced async fetch() with synchronous import',
-            'Eliminated cold-start latency — quotes load instantly',
+            'Eliminated cold-start latency quotes load instantly',
           ],
         },
         {
           heading: 'What I learned',
-          body:    `Every external runtime dependency is a potential failure point. Static data should be static — colocated with the code that uses it, versioned together, deployed together.`,
+          body:    `Every external runtime dependency is a potential failure point. Static data should be static. Colocated with the code that uses it, versioned together, deployed together.`,
         },
       ],
     },
@@ -435,7 +435,7 @@ export const projects: Project[] = [
       'Rich biographical content with primary source recommendations',
     ],
     challenges:
-      `Building smooth stateful transitions between philosopher bios without a heavy animation library — achieved with CSS transitions and React state.`,
+      `Building smooth stateful transitions between philosopher bios without a heavy animation library. Achieved with CSS transitions and React state.`,
     demo:   'https://stoic-timeline.netlify.app',
     github: 'https://github.com/zmcentire/stoic-bio',
     image:  'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800',
@@ -447,14 +447,14 @@ export const projects: Project[] = [
     status:  'live',
     stack:   ['React', 'Web Audio API'],
     description:
-      'A clean, functional metronome with BPM control built using React and the Web Audio API — a focused exercise in precise timing and audio scheduling in the browser.',
+      'A clean, functional metronome with BPM control built using React and the Web Audio API, a focused exercise in precise timing and audio scheduling in the browser.',
     highlights: [
       'Web Audio API for sample-accurate click scheduling',
       'BPM slider with tap-tempo input',
       'Lookahead scheduler pattern to prevent drift',
     ],
     challenges:
-      `Browser audio scheduling requires working slightly ahead of playback time to prevent drift — implemented a lookahead scheduler to maintain click accuracy.`,
+      `Browser audio scheduling requires working slightly ahead of playback time to prevent drift. Implemented a lookahead scheduler to maintain click accuracy.`,
     demo:   'https://react-metronome-zm.netlify.app',
     github: 'https://github.com/zmcentire/react-metronome',
     image:  'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=800',
@@ -463,42 +463,42 @@ export const projects: Project[] = [
   {
     id:      'guitar',
     title:   'Handbuilt Electric Guitar',
-    tagline: 'Firebird-inspired body carved from scratch — body, electronics, and custom wood case',
+    tagline: 'Firebird-inspired body carved from scratch: body, electronics, and custom wood case',
     status:  'live',
     stack:   ['Bandsaw', 'Router', 'Belt Sander', 'Orbital Sander', 'Woodworking'],
     description:
-      `A fully handbuilt electric guitar modeled after a Firebird-inspired body shape, finished gloss black with crimson binding. Body carved from what appears to be alder (tight grain, lightweight, consistent resonance). Three single-coil pickups, synchronized tremolo/whammy bar, volume and tone controls. The custom hardshell case — also handbuilt — is solid pine with mortise-and-rail panel construction, chrome hardware, and black crushed velvet lining.`,
+      `A fully handbuilt electric guitar modeled after a Firebird-inspired body shape, finished gloss black with crimson binding. Body carved from what appears to be alder (tight grain, lightweight, consistent resonance). Three single-coil pickups, synchronized tremolo/whammy bar, volume and tone controls. The custom hardshell case, also handbuilt, is solid pine with mortise-and-rail panel construction, chrome hardware, and black crushed velvet lining.`,
     highlights: [
       'Body shaped on a bandsaw from a solid blank, contours sanded by hand',
       'Router used to carve pickup cavities, control cavity, and neck pocket',
-      'Gloss black finish over what appears to be alder — tight grain, resonant',
+      'Gloss black finish over what appears to be alder, tight grain, resonant',
       'Red binding routed along body edges for visual definition',
       '3 single-coil pickups with synchronized tremolo/whammy bar',
       'Custom hardshell pine case with panel-and-rail construction and velvet lining',
     ],
     challenges:
-      `The neck pocket is the most unforgiving part of a handbuilt guitar — a fraction of a millimeter off and the intonation never sits right. Routing the control and pickup cavities required careful depth stops on the router to avoid blowing through the body. The case construction — joinery, hardware fitting, and lining — was a separate project almost as involved as the guitar itself.`,
+      `The neck pocket is the most unforgiving part of a handbuilt guitar, a fraction of a millimeter off and the intonation never sits right. Routing the control and pickup cavities required careful depth stops on the router to avoid blowing through the body. The case construction, joinery, hardware fitting, and lining, was a separate project almost as involved as the guitar itself.`,
     image:  '/images/guitar-front.jpg',
     caseStudy: {
       role:     'Luthier / woodworker',
       duration: 'Several months',
-      outcome:  'A fully playable handbuilt electric guitar with custom case — intonates correctly, plays in tune up the neck, and sounds exactly like a three-single-coil setup should.',
+      outcome:  'A fully playable handbuilt electric guitar with custom case, intonates correctly, plays in tune up the neck, and sounds exactly like a three-single-coil setup should.',
       sections: [
         {
           heading: 'Body',
-          body:    `The body is carved from what appears to be alder — the grain visible at the binding edges is tight and slightly figured, consistent with alder's characteristics. The shape is Firebird-inspired: the asymmetric offset waist, the extended lower bout, the swept upper horn. The silhouette was drawn freehand, cut on a bandsaw, and shaped progressively through belt, orbital, and hand sanding. The gloss black finish sits over a red binding routed along the edge for separation between top and sides.`,
+          body:    `The body is carved from what appears to be alder the grain visible at the binding edges is tight and slightly figured, consistent with alder's characteristics. The shape is Firebird-inspired: the asymmetric offset waist, the extended lower bout, the swept upper horn. The silhouette was drawn freehand, cut on a bandsaw, and shaped progressively through belt, orbital, and hand sanding. The gloss black finish sits over a red binding routed along the edge for separation between top and sides.`,
         },
         {
           heading: 'Electronics routing',
-          body:    `The pickup cavities and control cavity were routed with a plunge router using a template. The neck pocket — the most precision-critical cut on any guitar — was routed to match the bolt-on maple neck. Electronics are three single-coil pickups wired to a single volume and tone control, with a standard 5-way selector. Synchronized tremolo bridge with whammy bar.`,
+          body:    `The pickup cavities and control cavity were routed with a plunge router using a template. The neck pocket, the most precision-critical cut on any guitar, was routed to match the bolt-on maple neck. Electronics are three single-coil pickups wired to a single volume and tone control, with a standard 5-way selector. Synchronized tremolo bridge with whammy bar.`,
         },
         {
           heading: 'The case',
-          body:    `The hardshell case is solid pine — visible from the warm amber tone and the tight knotty grain in the case photos. Constructed with a panel-and-rail method: solid panels fitted into routed channels in the frame rails, similar to traditional door construction. Chrome barrel latches, hinges, and handle hardware. The interior is lined with black crushed velvet cut and fitted to the guitar's contours. Building the case took roughly as long as the guitar body itself — it's a second woodworking project nested inside the first.`,
+          body:    `The hardshell case is solid pine, visible from the warm amber tone and the tight knotty grain in the case photos. Constructed with a panel-and-rail method: solid panels fitted into routed channels in the frame rails, similar to traditional door construction. Chrome barrel latches, hinges, and handle hardware. The interior is lined with black crushed velvet cut and fitted to the guitar's contours. Building the case took roughly as long as the guitar body itself, it's a second woodworking project nested inside the first.`,
         },
         {
           heading: 'Why it matters',
-          body:    `Building a guitar from raw wood to playable instrument requires understanding tolerances that have no margin for error — neck pocket alignment, bridge saddle height, nut slot depth. It's a lesson in iterative precision that maps directly to how I approach engineering problems: define the constraint, work methodically, test at every stage, and don't move to the next step until the current one is right.`,
+          body:    `Building a guitar from raw wood to playable instrument requires understanding tolerances that have no margin for error, neck pocket alignment, bridge saddle height, nut slot depth. It's a lesson in iterative precision that maps directly to how I approach engineering problems: define the constraint, work methodically, test at every stage, and don't move to the next step until the current one is right.`,
         },
       ],
     },

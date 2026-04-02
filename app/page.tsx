@@ -106,7 +106,7 @@ export default function HomePage() {
             style={{ maxWidth: '540px', marginBottom: '16px', fontSize: '15px', lineHeight: '1.8' }}
           >
             Full-Stack &amp; AI Engineer. I build agentic systems, cloud-native apps,
-            and the tooling that keeps them running — then support the engineers who depend on them.
+            and the tooling that keeps them running and support the engineers who depend on them.
           </p>
           <p
             className="type-body fade-up fade-up-3"

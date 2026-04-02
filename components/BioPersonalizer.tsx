@@ -168,7 +168,7 @@ export default function BioPersonalizer() {
       </h2>
       <p className="type-body" style={{ maxWidth: '560px', marginBottom: '40px', fontSize: '14px' }}>
         Paste a job description. Claude rewrites my professional summary to match
-        the language and priorities of that specific role — live, in your browser.
+        the language and priorities of that specific role, live, in your browser.
       </p>
 
       {/* ── Card ────────────────────────────────────────────────────────── */}
@@ -330,7 +330,7 @@ export default function BioPersonalizer() {
               marginTop:   '6px',
               letterSpacing: '0.03em',
             }}>
-              Guide Claude toward a specific angle — domain, skill, or story you want to lead with.
+              Guide Claude toward a specific angle: domain, skill, or story you want to lead with.
             </p>
           </div>
 
