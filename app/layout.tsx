@@ -1,17 +1,10 @@
 import type { Metadata } from 'next'
 import { Cormorant, JetBrains_Mono } from 'next/font/google'
-import Navbar from '@/components/Navbar'
+import Navbar     from '@/components/Navbar'
 import SiteFooter from '@/components/SiteFooter'
-import { Analytics }     from '@vercel/analytics/react'
-import { SpeedInsights }  from '@vercel/speed-insights/next'
+import ChatWidget from '@/components/ChatWidget'
 import './globals.css'
 
-// ── Display font: Cormorant ───────────────────────────────────────────────
-// Fallback display serif loaded via next/font.
-// Cormorant is a high-contrast, thin-stroked serif — the closest Google
-// Fonts match to Bloodborne's cold, refined title lettering.
-// fleshandblood.ttf (the primary display font) is loaded via @font-face
-// in globals.css and takes precedence wherever it loads.
 const cormorant = Cormorant({
   subsets:  ['latin'],
   weight:   ['300', '400', '500', '600', '700'],
@@ -20,9 +13,6 @@ const cormorant = Cormorant({
   display:  'swap',
 })
 
-// ── Mono font: JetBrains Mono ─────────────────────────────────────────────
-// All body copy, labels, nav links, UI text, code.
-// --font-jetbrains avoids collision with --font-mono utility token.
 const jetbrainsMono = JetBrains_Mono({
   subsets:  ['latin'],
   weight:   ['300', '400', '500', '700'],
@@ -30,18 +20,11 @@ const jetbrainsMono = JetBrains_Mono({
   display:  'swap',
 })
 
-// ── Canonical base URL ───────────────────────────────────────────────────────
-// metadataBase is required for Next.js to resolve relative OG image URLs
-// at build time. Without it, /opengraph-image doesn't expand to a full URL
-// and social crawlers see a broken image reference.
 const SITE = 'https://zachmcentire.dev'
-
-// ── Shared description ────────────────────────────────────────────────────────
 const DESC =
   'Full-Stack & AI Engineer — agentic systems, cloud-native APIs, and the support tooling that keeps them running. 5+ years across product engineering, TAM, and AI. Salt Lake City / Remote.'
 
 export const metadata: Metadata = {
-  // metadataBase turns relative paths like /opengraph-image into absolute URLs
   metadataBase: new URL(SITE),
 
   title: {
@@ -50,26 +33,31 @@ export const metadata: Metadata = {
   },
   description: DESC,
   keywords: [
-    'Zach McEntire',
-    'Full-Stack Engineer',
-    'AI Engineer',
-    'Support Engineer',
-    'Solutions Engineer',
-    'React',
-    'Next.js',
-    'Python',
-    'FastAPI',
-    'Claude API',
-    'TimescaleDB',
-    'Salt Lake City',
-    'Remote',
+    'Zach McEntire', 'Full-Stack Engineer', 'AI Engineer',
+    'Support Engineer', 'Solutions Engineer',
+    'React', 'Next.js', 'Python', 'FastAPI', 'Claude API',
+    'TimescaleDB', 'Salt Lake City', 'Remote',
   ],
   authors:  [{ name: 'Zach McEntire', url: SITE }],
   creator:  'Zach McEntire',
-
-  // Canonical URL — prevents duplicate-content issues if the site is
-  // ever served from multiple domains or www/non-www variants.
   alternates: { canonical: SITE },
+
+  // ── Favicon / app icons ───────────────────────────────────────────────────
+  // Hunter's Mark rune — cyan on obsidian — all sizes generated from
+  // public/icon.png (48×48 source). Next.js serves these at the correct
+  // paths automatically.
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon.png',          sizes: '48x48',  type: 'image/png' },
+    ],
+    apple:   [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+    other:   [
+      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
+  },
 
   openGraph: {
     type:        'website',
@@ -78,8 +66,6 @@ export const metadata: Metadata = {
     siteName:    'Zach McEntire',
     title:       'Zach McEntire — Full-Stack & AI Engineer',
     description: DESC,
-    // /opengraph-image resolves to the app/opengraph-image.tsx ImageResponse route.
-    // metadataBase above expands this to https://zachmcentire.dev/opengraph-image
     images: [{
       url:    '/opengraph-image',
       width:  1200,
@@ -92,14 +78,12 @@ export const metadata: Metadata = {
     card:        'summary_large_image',
     title:       'Zach McEntire — Full-Stack & AI Engineer',
     description: DESC,
-    // Twitter also picks up the OG image automatically, but being
-    // explicit prevents edge cases with some crawlers.
     images:      ['/opengraph-image'],
   },
 
   robots: {
-    index:             true,
-    follow:            true,
+    index:     true,
+    follow:    true,
     googleBot: {
       index:               true,
       follow:              true,
@@ -117,11 +101,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
         <main id="main-content">{children}</main>
         <SiteFooter />
-        {/* Vercel Analytics — privacy-friendly, no cookies, GDPR-compliant.
-            Tracks page views and custom events. Free on Vercel's Hobby plan.
-            SpeedInsights captures Core Web Vitals (LCP, CLS, FID/INP) per route. */}
-        <Analytics />
-        <SpeedInsights />
+        <ChatWidget />
       </body>
     </html>
   )

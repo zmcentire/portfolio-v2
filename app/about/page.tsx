@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
-import { RESUME_URL } from '@/lib/constants'
 import Image from 'next/image'
+import { RESUME_URL } from '@/lib/constants'
 import BioPersonalizer from '@/components/BioPersonalizer'
-import SkillsSection from '@/components/SkillsSection'
-import ShipSection   from '@/components/ShipSection'
+import SkillsSection   from '@/components/SkillsSection'
+import ShipSection     from '@/components/ShipSection'
 
 export const metadata: Metadata = {
   title:       'About',
-  description: 'Full-Stack & AI Engineer with 5+ years across product engineering, Technical Account Management, and agentic AI systems. Based in Salt Lake City, open to remote.',
+  description: 'Full-Stack & AI Engineer with 5+ years across product engineering, TAM, and agentic AI systems. Based in Salt Lake City, open to remote.',
   alternates:  { canonical: 'https://zachmcentire.dev/about' },
   openGraph: {
     title:       'About Zach McEntire — Full-Stack & AI Engineer',
@@ -25,23 +25,12 @@ export default function AboutPage() {
     <>
       <div className="scanlines" aria-hidden="true" />
 
-      {/* <main> carries the implicit ARIA role="main" landmark.
-          This is already set in layout.tsx — the page-container div
-          here is just a layout wrapper inside that main. */}
       <div className="page-container" style={{ position: 'relative', zIndex: 1 }}>
 
-        {/* ── Introduction ────────────────────────────────────────────────
-            <section aria-labelledby> ties the section to its visible h1.
-            AT users hear "Introduction, region" when they enter.
-            Using aria-labelledby is preferred over aria-label because
-            it reuses text already visible on screen.
-        ──────────────────────────────────────────────────────────────── */}
         <section
           aria-labelledby="about-heading"
           style={{ display: 'flex', gap: '56px', alignItems: 'flex-start', marginBottom: '80px', flexWrap: 'wrap' }}
         >
-          {/* <figure> is the correct semantic wrapper for a self-contained
-              image with an implied caption. margin:0 resets browser default. */}
           <figure className="fade-up fade-up-1" style={{ position: 'relative', flexShrink: 0, margin: 0 }}>
             <Image
               src="/images/Headshot.jpeg"
@@ -50,9 +39,7 @@ export default function AboutPage() {
               height={270}
               priority
               quality={90}
-              placeholder="blur"
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR42mMQFpECAAB/AEJqxrfGAAAAAElFTkSuQmCC"
-              sizes="(max-width: 640px) 220px, 220px"
+              sizes="220px"
               style={{
                 objectFit:      'cover',
                 objectPosition: 'center top',
@@ -64,7 +51,6 @@ export default function AboutPage() {
                 zIndex:         1,
               }}
             />
-            {/* Glow ring — decorative */}
             <div
               aria-hidden="true"
               style={{
@@ -79,12 +65,10 @@ export default function AboutPage() {
           </figure>
 
           <div style={{ flex: '1 1 300px' }}>
-            {/* Eyebrow — <p> not a heading; it's a label prefix, not a title */}
             <p className="fade-up fade-up-1 type-eyebrow" style={{ marginBottom: '8px' }}>
               <span className="accent" aria-hidden="true">// </span>About
             </p>
 
-            {/* h1 — page title. id matches aria-labelledby on <section> */}
             <h1
               id="about-heading"
               className="fade-up fade-up-2 type-h1"
@@ -93,7 +77,6 @@ export default function AboutPage() {
               Zach McEntire
             </h1>
 
-            {/* Role subtitle — <p> not a heading; subordinate to h1 */}
             <p
               className="fade-up fade-up-2"
               style={{
@@ -107,53 +90,44 @@ export default function AboutPage() {
               Full-Stack &amp; AI Engineer
             </p>
 
-            {/* Decorative divider — aria-hidden removes purely visual element */}
             <div className="ruled-divider fade-up fade-up-3" aria-hidden="true">
               <span>⬡</span>
             </div>
 
-            {/* Bio — two <p> elements inside a <div> grouping them visually.
-                No role needed; AT reads them as sequential paragraphs. */}
             <div className="fade-up fade-up-3" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <p className="type-body">
-                I build agentic systems, cloud-native APIs, and the support tooling that
-                keeps them running. My background spans full-stack product engineering,
-                Technical Account Management, and AI systems — which means I can ship the
-                feature, debug the integration, and explain both to a customer on the same day.
+                I build agentic systems, cloud-native APIs, and the support tooling that keeps them
+                running — then I support the engineers who depend on them. My background spans
+                full-stack product engineering, Technical Account Management, and incident command,
+                which means I can ship the feature, debug the integration, and explain both
+                to a customer on the same day. Sometimes all three in the same afternoon.
               </p>
               <p className="type-body">
-                Recent work includes{' '}
-                <a
-                  href="https://tigerdata-fitness-tracker-production-a693.up.railway.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="TigerData fitness tracker, opens in new tab"
-                  className="link-cyan"
-                >
-                  TigerData
+                Most recently I deployed and triaged live network infrastructure for the{' '}
+                <span style={{ color: 'var(--color-text-primary)', fontWeight: 500 }}>Sundance Film Festival</span>
+                {' '}— seven venues, 20,000+ attendees, zero tolerance for downtime during screenings.
+                Before that, I led incident command at{' '}
+                <span style={{ color: 'var(--color-text-primary)', fontWeight: 500 }}>ActionIQ</span>
+                {' '}on production CDP failures, built agentic AI tooling at the intersection of{' '}
+                <a href="https://github.com/zmcentire/sentinel-ops" target="_blank" rel="noopener noreferrer" className="link-cyan" aria-label="SENTINEL/OPS on GitHub">
+                  SENTINEL/OPS
                 </a>
-                {' '}— an agentic fitness tracker using Claude tool-use agents and TimescaleDB
-                hypertables deployed on Railway — and{' '}
-                <a
-                  href="https://firehouse-app.web.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="HotZone field resource app, opens in new tab"
-                  className="link-cyan"
-                >
-                  HotZone
+                {' '}and{' '}
+                <a href="https://support-desk-teal.vercel.app" target="_blank" rel="noopener noreferrer" className="link-cyan" aria-label="SupportDesk live demo">
+                  SupportDesk
                 </a>
-                {', '}a field resource app for firefighters and paramedics built on React and Firebase.
+                {', '}and designed 6 custom ASP.NET web pages for Splunk's partner portal as a TAM at Impartner.
               </p>
               <p className="type-body">
-                Currently targeting roles in Support Engineering, Full-Stack / Backend
-                Engineering, and Solutions Engineering — with a long-term direction toward
-                security engineering. Based in Salt Lake City, open to remote.
-              </p>
+                Off the clock: I build electric guitars by hand — most recently a Firebird-inspired
+                body carved from scratch with a custom pine hardshell case. I take weightlifting and
+                pizza with equal seriousness. Elder emo — industrial, metal, post-rock — it was never
+                a phase. Cosmic horror enthusiast. Top three games: Bloodborne, Ocarina of Time, The
+                Last of Us. Top three films: Blade Runner, Inception, Shawshank. Currently targeting
+                Support Engineering, Full-Stack/Backend, and Solutions Engineering roles — remote
+                preferred, Salt Lake City based.</p>
             </div>
 
-            {/* Contact links — <nav> landmark so AT users can jump here.
-                Label distinguishes from the main header nav. */}
             <nav
               aria-label="Contact and social profiles"
               className="fade-up fade-up-4"
@@ -196,22 +170,8 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── Skills ────────────────────────────────────────────────────────
-            SkillsSection is a 'use client' component — tabbed layout
-            with proficiency indicators and staggered entrance animation.
-        ──────────────────────────────────────────────────────────────── */}
         <SkillsSection />
-
-        {/* ── How I Ship ────────────────────────────────────────────────────
-            ShipSection is a 'use client' component — CI/CD pipeline SVG,
-            branch strategy diagram, deploy platform cards, YAML snippet.
-        ──────────────────────────────────────────────────────────────── */}
         <ShipSection />
-
-        {/* ── AI Personalizer ───────────────────────────────────────────────
-            BioPersonalizer contains its own <section aria-labelledby>
-            and form with proper labelling — see that component.
-        ──────────────────────────────────────────────────────────────── */}
         <BioPersonalizer />
 
       </div>
